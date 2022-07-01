@@ -13,6 +13,16 @@ export default [
     },
   },
   {
+    label: 'Des3d',
+    image: Images.des3d,
+    description: 'Simulation for DynSol',
+    acknowledgement: 'Example not by Kitware Inc.',
+    model: {
+      type: 'des3d',
+      data: {},
+    },
+  },
+  {
     label: 'Address book',
     icon: 'mdi-contact-mail',
     description: 'Address book which generate vcs files',
