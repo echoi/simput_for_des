@@ -1,12 +1,12 @@
 {
   "views": {
-    "oscillators": "Oscillators",
+    "des3dmodels": "DES3D Models",
     "analyses": "Analyses",
     "run": "Execution Script"
   },
   "attributes": {
-    "oscillator": {
-      "title": "Oscillator",
+    "des3dmodel": {
+      "title": "DES3D Model",
       "parameters": {
         "type": "Type",
         "center": "Center",

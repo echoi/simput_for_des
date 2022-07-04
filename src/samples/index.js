@@ -13,10 +13,10 @@ export default [
     },
   },
   {
-    label: 'Des3d',
+    label: 'DES3D',
     image: Images.des3d,
-    description: 'Simulation for DynSol',
-    acknowledgement: 'Example not by Kitware Inc.',
+    description: 'Long-term tectonic simulation code, Dynamic Earth Solver in 3D',
+    acknowledgement: '',
     model: {
       type: 'des3d',
       data: {},

@@ -1,13 +1,16 @@
 module.exports = {
-  order: ['des3dmodels', 'analyses'],
+  order: ['run', 'oscillators', 'analyses'],
   views: {
-    des3dmodels: {
+    oscillators: {
       size: -1,
-      attributes: ['des3dmodel'],
+      attributes: ['oscillator', 'oscillatorView'],
       hooks: [
         {
           type: 'copyParameterToViewName',
-          attribute: 'des3dmodel.name',
+          attribute: 'oscillator.name',
+        },
+        {
+          type: 'oscillatorsToExternal',
         },
       ],
     },
@@ -21,9 +24,29 @@ module.exports = {
         },
       ],
     },
+    run: {
+      attributes: ['runParams'],
+      hooks: [
+        {
+          type: 'copyToExternal',
+          src: 'data.run.0.runParams.gridsize.value.0',
+          dst: 'viz.gridsize',
+        },
+        {
+          type: 'copyToExternal',
+          src: 'data.run.0.runParams.dt.value.0',
+          dst: 'viz.timeStep',
+        },
+        {
+          type: 'copyToExternal',
+          src: 'data.run.0.runParams.endT.value.0',
+          dst: 'viz.endTime',
+        },
+      ],
+    },
   },
   definitions: {
-    des3dmodel: {
+    oscillator: {
       parameters: [
         {
           id: 'name',
@@ -166,6 +189,23 @@ module.exports = {
           type: 'double',
           size: 1,
           default: [10],
+        },
+      ],
+    },
+    oscillatorView: {
+      parameters: [
+        {
+          id: 'viz',
+          propType: 'ViewerWidget',
+          size: 1,
+          default: {
+            text: '',
+          },
+          domain: {
+            dynamic: true,
+            external: 'viz',
+          },
+          label: 'Gaussians',
         },
       ],
     },

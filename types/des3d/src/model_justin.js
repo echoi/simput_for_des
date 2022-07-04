@@ -1,176 +1,153 @@
 module.exports = {
-  order: ['des3dmodels', 'analyses'],
+  order: ['sim', 'mesh', 'markers', 'control', 'bc', 'ic', 'mat'],
   views: {
-    des3dmodels: {
-      size: -1,
-      attributes: ['des3dmodel'],
-      hooks: [
-        {
-          type: 'copyParameterToViewName',
-          attribute: 'des3dmodel.name',
-        },
-      ],
-    },
-    analyses: {
-      size: -1,
-      attributes: ['analysis'],
-      hooks: [
-        {
-          type: 'copyParameterToViewName',
-          attribute: 'analysis.name',
-        },
-      ],
-    },
+   sim: {
+    attributes: [modelname, max_steps, max_time_in_yr, 
+      output_step_interval, output_time_interval_in_yr, 
+      checkpoint_frame_interval, is_restarting, restarting_from_modelname, restarting_from_frame,
+      has_initial_checkpoint, has_marker_output, has_output_during_remeshing, is_outputting_averaged_fields],
+   } ,
+   mesh: {
+    attributes: [meshing_option, meshing_verbosity, tetgen_optlevel,
+    xlength, ylength, zlength, resolution, smallest_size, largest_size,
+    min_angle, min_tet_angle, max_ratio,
+    for_meshing_option, refined_zonex, refined_zoney, refined_zonez,
+    meshing_option, poly_filename, 
+    quality_check_step_interval, min_quality, max_boundary_distortion,
+    remeshing_option, is_discarding_internal_segements,
+    mmg_debug, mmg_verbose, mmg_hmax_factor, mmg_hmin_factor, mmg_hausd_factor],
+   } ,
+   markers: {
+    attributes: [init_marker_option, markers_per_element, init_marker_spacing, 
+    min_num_markers_in_element, replenishment_option, random_seed],
+   } ,
+   control: {
+    attributes: [gravity, characteristic_speed, is_quasi_static, dt_fraction, fixed_dt, inertial_scaling, 
+    damping_option, damping_factor, ref_pressure_option, surface_process_option, surface_diffusivity, 
+    has_thermal_diffusion, has_hydration_process, hydration_migration_speed],
+   } ,
+   bc: {
+    attributes: [vbc_x0, vbc_x1, vbc_val_x0, vbc_val_x1, vbc_y0, vbc_y1, vbc_val_y0, vbc_val_y1,
+    vbc_val_z0, vbc_val_z1, vbc_n0, vbc_val_n0, vbc_n1, vbc_val_n1, vbc_n2, vbc_val_n2, vbc_n3, vbc_val_n3,
+    has_wrinkler_foundation, wrinkler_delta_rho, has_elastic_foundation, elastic_foundation_constant, 
+    has_water_loading, surface_temperature, mantle_temperature],
+   } ,
+   ic: {
+    attributes: [mattype_option, mattype_layer_depths, weakzone_option, weakzone_plstrain, weakzone_azimuth,
+    weakzone_inclination, weakzone_halfwidth, weakzone_y_min, weakzone_y_max, weakzone_depth_min, weakzone_depth_max,
+    weakzone_xcenter, weakzone_ycenter, weakzone_zcenter, weakzone_xsemi_axis, weakzone_ysemi_axis, weakzone_zsemi_axis,
+    temperature_option, oceanic_plate_age_in_yr, temperature_option, temp_filename, nodes_filename, connectivity_filename,
+    isostasy_adjustment_time_in_yr],
+   } ,
+   mat: {
+    attributes: [rheology_type, is_plane_strain, phase_change_option, num_materials, rho0, alpha, bulk_modulus, 
+    shear_modulus, visc_exponent, visc_coefficient, visc_activation_energy, heat_capacity, therm_cond, pls0, pls1,
+    cohesion0, cohesion1, friction_angle0, friction_angle1, dilation_angle0, dilation_angle1,
+    max_viscosity, min_viscosity, max_tension, max_thermal_diffusivity],
+   },
   },
   definitions: {
-    des3dmodel: {
+    modelname: {
       parameters: [
         {
-          id: 'name',
-          label: 'Name',
+          id: 'modelname',
+          label: 'Model Name',
           type: 'string',
           size: 1,
-        },
-        {
-          id: 'type',
-          type: 'enum',
-          size: 1,
-          default: 'periodic',
-          domain: {
-            Periodic: 'periodic',
-            Decaying: 'decaying',
-            Damped: 'damped',
-          },
-        },
-        {
-          id: 'center',
-          type: 'int',
-          size: 3,
-          layout: '3',
-          default: [0, 0, 0],
-        },
-        {
-          id: 'radius',
-          type: 'double',
-          size: 1,
-          default: [1],
-        },
-        {
-          id: 'omega0',
-          type: 'double',
-          size: 1,
-          default: [1],
-        },
-        {
-          id: 'zeta',
-          type: 'double',
-          size: 1,
-          show: "type[0] === 'damped'",
+          default: 'result',
         },
       ],
     },
-    analysis: {
+    max_steps: {
       parameters: [
         {
-          id: 'name',
-          label: 'Name',
+          id: 'max_steps',
+          label: 'Max Steps',
+          type: 'int',
+          size: 1,
+          default: 1000,
+        },
+      ],
+    },
+    max_time_in_yr: {
+      parameters: [
+        {
+          id: 'max_time_in_yr',
+          label: 'Max Time In Year',
+          type: 'int',
+          size: 1,
+          default: 3000,
+        },
+      ],
+    },
+    output_step_interval: {
+      parameters: [
+        {
+          id: 'output_step_interval',
+          label: 'Output Step Interval',
+          type: 'int',
+          size: 1,
+          default: 200,
+        },
+      ],
+    },
+    output_time_interval_in_yr: {
+      parameters: [
+        {
+          id: 'output_time_interval_in_yr',
+          label: 'Output Time Interval In Year',
+          type: 'int',
+          size: 1,
+          default: 100,
+        },
+      ],
+    },
+    checkpoint_frame_interval: {
+      parameters: [
+        {
+          id: 'checkpoint_frame_interval',
+          label: 'Output Time Interval In Year',
+          type: 'int',
+          size: 1,
+          default: 10,
+        },
+      ],
+    },
+    is_restarting: {
+      parameters: [
+        {
+          id: 'is_restarting',
+          label: 'What does is restarting mean',
+          type: 'boolean',
+          size: 1,
+          default: false,
+        },
+      ],
+    },
+    restarting_from_modelname: {
+      parameters: [
+        {
+          id: 'restarting_from_modelname',
+          label: 'unsure what this means',
           type: 'string',
           size: 1,
+          default: 'result',
         },
-        {
-          id: 'type',
-          type: 'enum',
-          size: 1,
-          default: 'histogram',
-          domain: {
-            Histogram: 'histogram',
-            Autocorrelation: 'autocorrelation',
-          },
-        },
-        ["histogram", "autocorrelation"],
       ],
-      children: {
-        histogram: "analysis.type[0] === 'histogram'",
-        autocorrelation: "analysis.type[0] === 'autocorrelation'",
-      },
     },
-    histogram: {
-       parameters: [
-          {
-              id: 'mesh',
-              type: 'enum',
-              size: 1,
-              default: 'mesh',
-              domain: {
-                Mesh: 'mesh',
-                'Unstructured mesh': 'ucdmesh',
-                'Particle velocity magnitude': 'particles',
-              },
-          },
-          {
-            id: 'bins',
-            type: 'int',
-            size: 1,
-            default: [10],
-          },
-       ],
-    },
-    autocorrelation: {
-       parameters: [
-          {
-              id: 'mesh',
-              type: 'enum',
-              size: 1,
-              default: 'mesh',
-              domain: {
-                // currently only works on one type.
-                Mesh: 'mesh',
-              },
-          },
-          {
-            id: 'window',
-            type: 'double',
-            size: 1,
-            default: [10],
-          },
-          {
-            id: 'kmax',
-            type: 'double',
-            size: 1,
-            default: [3],
-          },
-       ],
-    },
-    runParams: {
+    restarting_from_frame: {
       parameters: [
         {
-          id: 'nodes',
-          type: 'int',
+          id: 'restarting_from_frame',
+          label: 'unsure whether this is boolean or not',
+          type: 'boolean',
           size: 1,
-          default: [1],
-        },
-        {
-          id: 'gridsize',
-          type: 'int',
-          size: 1,
-          default: [64],
-        },
-        {
-          id: 'dt',
-          type: 'double',
-          size: 1,
-          default: [0.1],
-        },
-        {
-          id: 'endT',
-          type: 'double',
-          size: 1,
-          default: [10],
+          default: false,
         },
       ],
     },
   },
-};
+
 
 // #############################################################################
 // # This is an input file for 2D/3D DynEarthSol. All available input parameters
@@ -186,10 +163,8 @@ module.exports = {
 // #############################################################################
 //                                                          [sim]
 // modelname = result
-// ### Condition for end of simulation
 // max_steps = 1000
 // max_time_in_yr = 3000
-// ### Condition for output
 // output_step_interval = 200
 // output_time_interval_in_yr = 100
 // #checkpoint_frame_interval = 10
@@ -201,20 +176,16 @@ module.exports = {
 // #has_output_during_remeshing = no
 // #is_outputting_averaged_fields = yes
 //                                                                   [mesh]
-// ### How to create the new mesh?
 // #meshing_option = 1
 // #meshing_verbosity = -1
 // #tetgen_optlevel = 3
-// ### Dimension of the box (in meters)
 // xlength = 130e3
 // ylength = 100e3
 // zlength = 100e3
 // resolution = 30e3
 // #smallest_size = 0.01
 // #largest_size = 30
-// ### For 2d mesh quality
 // #min_angle = 32.
-// ### For 3d mesh quality
 // #min_tet_angle = 22.
 // #max_ratio = 2.0
 // ### For meshing_option = 2
@@ -303,10 +274,9 @@ module.exports = {
 // #weakzone_xsemi_axis = 1e3
 // #weakzone_ysemi_axis = 1e3
 // #weakzone_zsemi_axis = 1e3
-// ### How to build the thermal profile
 // #temperature_option = 0
 // #oceanic_plate_age_in_yr = 60e6
-// ### For temperature_option = 90
+// For temperature_option = 90
 // #Temp_filename = Thermal.dat
 // #Nodes_filename = Coord.dat
 // #Connectivity_filename = Connectivity.dat
@@ -340,3 +310,4 @@ module.exports = {
 // #min_viscosity = 1e18
 // #max_tension = 1e9
 // #max_thermal_diffusivity = 5e-6
+};
