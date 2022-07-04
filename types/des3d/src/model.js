@@ -1,50 +1,99 @@
 module.exports = {
-  order: ['run', 'oscillators', 'analyses'],
+  order: ['run', 'sim', 'mesh', 'markers', 'control', 'bc', 'ic', 'mat'],
   views: {
-    oscillators: {
-      size: -1,
-      attributes: ['oscillator', 'oscillatorView'],
-      hooks: [
-        {
-          type: 'copyParameterToViewName',
-          attribute: 'oscillator.name',
-        },
-        {
-          type: 'oscillatorsToExternal',
-        },
-      ],
-    },
-    analyses: {
-      size: -1,
-      attributes: ['analysis'],
-      hooks: [
-        {
-          type: 'copyParameterToViewName',
-          attribute: 'analysis.name',
-        },
-      ],
-    },
-    run: {
-      attributes: ['runParams'],
-      hooks: [
-        {
-          type: 'copyToExternal',
-          src: 'data.run.0.runParams.gridsize.value.0',
-          dst: 'viz.gridsize',
-        },
-        {
-          type: 'copyToExternal',
-          src: 'data.run.0.runParams.dt.value.0',
-          dst: 'viz.timeStep',
-        },
-        {
-          type: 'copyToExternal',
-          src: 'data.run.0.runParams.endT.value.0',
-          dst: 'viz.endTime',
-        },
-      ],
-    },
-  },
+    // oscillators: {
+    //   size: -1,
+    //   attributes: ['oscillator', 'oscillatorView'],
+    //   hooks: [
+    //     {
+    //       type: 'copyParameterToViewName',
+    //       attribute: 'oscillator.name',
+    //     },
+    //     {
+    //       type: 'oscillatorsToExternal',
+    //     },
+    //   ],
+    // },
+   run: {
+    size:
+    attributes: [],
+    hooks: [
+      {
+        type:
+        attribute:
+      },
+    ],
+   } ,
+   sim: {
+    size:
+    attributes: [],
+    hooks: [
+      {
+        type:
+        attribute:
+      },
+    ],
+   } ,
+   mesh: {
+    size:
+    attributes: [],
+    hooks: [
+      {
+        type:
+        attribute:
+      },
+    ],
+   } ,
+   markers: {
+    size:
+    attributes: [],
+    hooks: [
+      {
+        type:
+        attribute:
+      },
+    ],
+   } ,
+   control: {
+    size:
+    attributes: [],
+    hooks: [
+      {
+        type:
+        attribute:
+      },
+    ],
+   } ,
+   bc: {
+    size:
+    attributes: [],
+    hooks: [
+      {
+        type:
+        attribute:
+      },
+    ],
+   } ,
+   ic: {
+    size:
+    attributes: [],
+    hooks: [
+      {
+        type:
+        attribute:
+      },
+    ],
+   } ,
+   mat: {
+    size:
+    attributes: [],
+    hooks: [
+      {
+        type:
+        attribute:
+      },
+    ],
+   } ,
   definitions: {
     oscillator: {
       parameters: [
