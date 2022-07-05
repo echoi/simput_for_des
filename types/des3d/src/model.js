@@ -25,6 +25,7 @@ module.exports = {
   definitions: {
     des3dmodel: {
       parameters: [
+        //sim
         {
           id: 'modelname',
           type: 'string',
@@ -109,6 +110,7 @@ module.exports = {
           size: 1,
           default: 'yes',
         },
+        //mesh
         //JSON code (label.json)
         // "meshing_option": "Meshing option",
         // "meshing_verbosity": "Meshing verbosity",
@@ -116,6 +118,7 @@ module.exports = {
       
         //Start of mesh section in model.js
         //[placeholder for a few {} contents]
+        //dimensions of box
         {
           id: 'xlength',
           type: 'string',
@@ -152,13 +155,15 @@ module.exports = {
           size: 1,
           default: '30',
         },
-          //JSON code (label.json)
+          //JSON code (label.json) based on quality ie 2/3d
         //min_angle
         //min_tet_angle
         //max_ratio
+        //                 meshing option =2 
         //refined_zonex
         //refined_zoney
         //refined_zonez
+        //                            meshing option = 90 or 95 
         //poly_filename (times 2)
         {
           id: 'quality_check_step_interval',
@@ -190,6 +195,509 @@ module.exports = {
           size: 1,
           default: '30',
         },
+        {
+          id: 'is_discarding_internal_segments',
+          type: 'string',
+          size: 1,
+          default: 'yes',
+        },
+        {
+          id: 'mmg_debug',
+          type: 'string',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'mmg_verbose',
+          type: 'string',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'mmg_hmax_factor',
+          type: 'float',
+          size: 1,
+          default: '2.0',
+        },
+        {
+          id: 'mmg_hmin_factor',
+          type: 'float',
+          size: 1,
+          default: '0.2',
+        },
+        {
+          id: 'mmg_hausd_factor',
+          type: 'float',
+          size: 1,
+          default: '0.01',
+        },
+        //markers
+        {
+          id: 'init_marker_option',
+          type: 'int',
+          size: 1,
+          default: '1',
+        },
+        {
+          id: 'markers_per_element',
+          type: 'int',
+          size: 1,
+          default: '4',
+        },
+        {
+          id: 'init_marker_spacing',
+          type: 'float',
+          size: 1,
+          default: '0.3',
+        },
+        {
+          id: 'min_num_markers_in_element',
+          type: 'int',
+          size: 1,
+          default: '3',
+        },
+        {
+          id: 'replenishment_option',
+          type: 'int',
+          size: 1,
+          default: '1',
+        },
+        {
+          id: 'random_seed',
+          type: 'int',
+          size: 1,
+          default: '1',
+        },
+        //control
+        {
+          id: 'gravity',
+          type: 'int',
+          size: 1,
+          default: '10',
+        },
+        {
+          id: 'characteristic_speed',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'is_quasi_static',
+          type: 'string',
+          size: 1,
+          default: 'yes',
+        },
+        {
+          id: 'dt_fraction',
+          type: 'float',
+          size: 1,
+          default: '1.0',
+        },
+        {
+          id: 'fixed_dt',
+          type: 'float',
+          size: 1,
+          default: '0.0',
+        },
+        {
+          id: 'intertial_scaling',
+          type: 'string',
+          size: 1,
+          default: '1e5',
+        },
+        {
+          id: 'damping_option',
+          type: 'int',
+          size: 1,
+          default: '1',
+        },
+        {
+          id: 'damping_factor',
+          type: 'float',
+          size: 1,
+          default: '0.8',
+        },
+        {
+          id: 'ref_pressure_option',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'surface_process_option',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'surface_diffusivity',
+          type: 'string',
+          size: 1,
+          default: '1e-6',
+        },
+        {
+          id: 'has_thermal_diffusion',
+          type: 'string',
+          size: 1,
+          default: 'yes',
+        },
+        {
+          id: 'has_hydration_processes',
+          type: 'int',
+          size: 1,
+          default: 'no',
+        },
+        {
+          id: 'hydration_migration_speed',
+          type: 'string',
+          size: 1,
+          default: '3e-9',
+        },
+        //bc
+        {
+          id: 'vbc_x0',
+          type: 'int',
+          size: 1,
+          default: '1',
+        },
+        {
+          id: 'vbc_x1',
+          type: 'int',
+          size: 1,
+          default: '1',
+        },
+        {
+          id: 'vbc_val_x0',
+          type: 'string',
+          size: 1,
+          default: '-1e-9',
+        },
+        {
+          id: 'vbc_val_x1',
+          type: 'string',
+          size: 1,
+          default: '1e-9',
+        },
+        {
+          id: 'vbc_y0',
+          type: 'int',
+          size: 1,
+          default: '1',
+        },
+        {
+          id: 'vbc_y1',
+          type: 'int',
+          size: 1,
+          default: '1',
+        },
+        {
+          id: 'vbc_val_y0',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'vbc_val_y1',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'vbc_z0',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'vbc_z1',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'vbc_val_z0',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'vbc_val_z1',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'vbc_n0',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'vbc_val_n0',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'vbc_n1',
+          type: 'int',
+          size: 1,
+          default: '1',
+        },
+        {
+          id: 'vbc_val_n1',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'vbc_n2',
+          type: 'int',
+          size: 1,
+          default: '1',
+        },
+        {
+          id: 'vbc_val_n2',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'vbc_n3',
+          type: 'int',
+          size: 1,
+          default: '1',
+        },
+        {
+          id: 'vbc_val_n3',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'has_wrinkler_foundation',
+          type: 'string',
+          size: 1,
+          default: 'yes',
+        },
+        {
+          id: 'has_elastic_foundation',
+          type: 'string',
+          size: 1,
+          default: 'no',
+        },
+        {
+          id: 'elastic_foundation_constant',
+          type: 'string',
+          size: 1,
+          default: '1e11',
+        },
+        {
+          id: 'has_water_loading',
+          type: 'string',
+          size: 1,
+          default: 'yes',
+        },
+        {
+          id: 'surface_temperature',
+          type: 'int',
+          size: 1,
+          default: '273',
+        },
+        {
+          id: 'mantle_temperature',
+          type: 'int',
+          size: 1,
+          default: '1600',
+        },
+        //ic
+        {
+          id: 'mattype_option',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        // {
+        //   id: 'mattype_layer_depths',
+        //   type: 'int',
+        //   size: 1,
+        //   default: '1600',
+        // },
+        // brackets around thing but only one float value
+        {
+          id: 'weakzone_option',
+          type: 'int',
+          size: 1,
+          default: '1',
+        },
+        {
+          id: 'weakzone_plstrain',
+          type: 'float',
+          size: 1,
+          default: '0.1',
+        },
+        {
+          id: 'weakzone_azimuth',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'weakzone_inclination',
+          type: 'int',
+          size: 1,
+          default: '90',
+        },
+        {
+          id: 'weakzone_halfwidth',
+          type: 'float',
+          size: 1,
+          default: '1.5',
+        },
+        {
+          id: 'weakzone_y_min',
+          type: 'float',
+          size: 1,
+          default: '0.0',
+        },
+        {
+          id: 'weakzone_y_max',
+          type: 'float',
+          size: 1,
+          default: '1.0',
+        },
+        {
+          id: 'weakzone_depth_min',
+          type: 'float',
+          size: 1,
+          default: '0.0',
+        },
+        {
+          id: 'weakzone_depth_max',
+          type: 'float',
+          size: 1,
+          default: '1.0',
+        },
+        {
+          id: 'weakzone_xcenter',
+          type: 'float',
+          size: 1,
+          default: '0.5',
+        },
+        {
+          id: 'weakzone_ycenter',
+          type: 'float',
+          size: 1,
+          default: '0.5',
+        },
+        {
+          id: 'weakzone_zcenter',
+          type: 'float',
+          size: 1,
+          default: '0.5',
+        },
+        {
+          id: 'weakzone_xsemi_axis',
+          type: 'string',
+          size: 1,
+          default: '1e3',
+        },
+        {
+          id: 'weakzone_ysemi_axis',
+          type: 'string',
+          size: 1,
+          default: '1e3',
+        },
+        {
+          id: 'weakzone_zsemi_axis',
+          type: 'string',
+          size: 1,
+          default: '1e3',
+        },
+        {
+          id: 'temperature_option',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'oceanic_plate_age_in_yr',
+          type: 'string',
+          size: 1,
+          default: '60e6',
+        },
+        //for teperature option 90 & others
+
+        //mat
+        {
+          id: 'rheology_type',
+          type: 'string',
+          ui: "enum",
+          size: 1,
+          default: "elastic",
+          domain: {
+            "elastic": "elastic",
+            "viscous": "viscous",
+            "maxwell": "maxwell",
+            "elasto-plastic": "elasto_plastic",
+            "elasto-visco-plastic": "elasto-visco-plastic",
+          }
+        },
+        {
+          id: 'is_plane_strain',
+          type: 'string',
+          size: 1,
+          default: 'no',
+        },
+        {
+          id: 'phase_change_option',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'num_materials',
+          type: 'int',
+          size: 1,
+          default: '1',
+        },
+        {
+          id: 'oceanic_plate_age_in_yr',
+          type: 'string',
+          size: 1,
+          default: '60e6',
+        },
+        //more conditioals which are mroe streange
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       ],
     },
     analysis: {
