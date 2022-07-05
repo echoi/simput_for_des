@@ -8,13 +8,33 @@
     "des3dmodel": {
       "title": "DES3D Model",
       "parameters": {
-        "type": "Type",
-        "center": "Center",
-        "radius": "Radius",
-        "omega0": "Omega 0",
-        "zeta": "Zeta"
+        "modelname": "Model name",
+        "max_steps": "Max number of steps (1000>=)",
+        "max_time_in_yr": "Max time in year (3000>=)",
+        "output_step_interval": "Interval between steps",
+        "output_time_interval_in_yr": "Interval between years",
+        "checkpoint_frame_interval": "Interval between checkpoint frames",
+        "is_restarting": "Dictates whether the model loops upon completion",
+        "restarting_from_modelname": "Restarting from modelname",
+        "restarting_from_frame": "What frame model restarts from",
+        "has_initial_checkpoint": "Whether the model has an initial checkpoint",
+        "has_marker_output": "Whether model has output marker",
+        "has_output_during_remeshing": "Whether model has output during remeshing",
+        "is_outputting_averaged_fields": "Whether model outputs averaged fields",
+        
+        "xlength": "X-length of box (in meters)",
+        "ylength": "Y-length of box (in meters)",
+        "zlength": "Z-length of box (in meters)",
+        "resolution": "Resolution of box",
+        "smallest_size": "Smallest size",
+        "largest_size": "Largest size" 
+        
       }
     },
+
+    
+
+
     "analysis": {
       "title": "Analysis",
       "parameters": {

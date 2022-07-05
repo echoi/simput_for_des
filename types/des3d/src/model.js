@@ -26,46 +26,169 @@ module.exports = {
     des3dmodel: {
       parameters: [
         {
-          id: 'name',
-          label: 'Name',
+          id: 'modelname',
           type: 'string',
           size: 1,
+          default: 'result',
         },
         {
-          id: 'type',
-          type: 'enum',
-          size: 1,
-          default: 'periodic',
-          domain: {
-            Periodic: 'periodic',
-            Decaying: 'decaying',
-            Damped: 'damped',
-          },
-        },
-        {
-          id: 'center',
+          id: 'max_steps',
           type: 'int',
-          size: 3,
-          layout: '3',
-          default: [0, 0, 0],
+          size: 1,
+          default: '1000',
         },
         {
-          id: 'radius',
-          type: 'double',
+          id: 'max_time_in_yr',
+          type: 'int',
           size: 1,
-          default: [1],
+          default: '3000',
         },
         {
-          id: 'omega0',
-          type: 'double',
+          id: 'output_step_interval',
+          type: 'int',
           size: 1,
-          default: [1],
+          default: '200',
         },
         {
-          id: 'zeta',
-          type: 'double',
+          id: 'output_time_interval_in_yr',
+          type: 'int',
           size: 1,
-          show: "type[0] === 'damped'",
+          default: '100',
+        },
+        {
+          id: 'checkpoint_frame_interval',
+          type: 'int',
+          size: 1,
+          default: '10',
+        },
+        {
+          id: 'is_restarting',
+          type: 'string',
+          size: 1,
+          default: 'yes',
+        },
+        {
+          id: 'restarting_from_modelname',
+          type: 'string',
+          size: 1,
+          default: 'result',
+        },
+        {
+          id: 'restarting_from_frame',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'has_initial_checkpoint',
+          type: 'string',
+          size: 1,
+          default: 'yes',
+        },
+        {
+          id: 'has_marker_output',
+          type: 'string',
+          size: 1,
+          default: 'yes',
+        },
+        {
+          id: 'has_output_during_remeshing',
+          type: 'string',
+          size: 1,
+          default: 'no',
+        },
+        {
+          id: 'is_outputting_averaged_fields',
+          type: 'string',
+          size: 1,
+          default: 'yes',
+        },
+        {
+          id: 'is_outputting_averaged_fields',
+          type: 'string',
+          size: 1,
+          default: 'yes',
+        },
+        //JSON code (label.json)
+        // "meshing_option": "Meshing option",
+        // "meshing_verbosity": "Meshing verbosity",
+        // "tetgen_optlevel": "Tetgen optlevel",
+      
+        //Start of mesh section in model.js
+        //[placeholder for a few {} contents]
+        {
+          id: 'xlength',
+          type: 'string',
+          size: 1,
+          default: '130e3',
+        },
+        {
+          id: 'ylength',
+          type: 'string',
+          size: 1,
+          default: '130e3',
+        },
+        {
+          id: 'zlength',
+          type: 'string',
+          size: 1,
+          default: '130e3',
+        },
+        {
+          id: 'resolution',
+          type: 'string',
+          size: 1,
+          default: '30e3',
+        },
+        {
+          id: 'smallest_size',
+          type: 'string',
+          size: 1,
+          default: '0.01',
+        },
+        {
+          id: 'largestsize',
+          type: 'string',
+          size: 1,
+          default: '30',
+        },
+          //JSON code (label.json)
+        //min_angle
+        //min_tet_angle
+        //max_ratio
+        //refined_zonex
+        //refined_zoney
+        //refined_zonez
+        //poly_filename (times 2)
+        {
+          id: 'quality_check_step_interval',
+          type: 'string',
+          size: 1,
+          default: '100',
+        },
+        {
+          id: 'min_quality',
+          type: 'string',
+          size: 1,
+          default: '0.4',
+        },
+        {
+          id: 'max_boundary_distortion',
+          type: 'string',
+          size: 1,
+          default: '0.25',
+        },
+        {
+          id: 'remeshing option',
+          type: 'string',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'is_discarding_internal_segments',
+          type: 'string',
+          size: 1,
+          default: '30',
         },
       ],
     },
