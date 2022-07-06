@@ -1,12 +1,30 @@
 {
   "views": {
     "des3dmodels": "DES3D Models",
-    "analyses": "Analyses",
-    "run": "Execution Script"
+    "sim": "sim: Simulation parameters",
+    "mesh": "mesh: Create the mesh",
+    "markers": "markers",
+    "control": "control",
+    "bc": "bc",
+    "ic": "ic",
+    "mat": "mat",
+    "analyses": "Analyses"
+
   },
+
+
+
   "attributes": {
     "des3dmodel": {
       "title": "DES3D Model",
+      "parameters": {
+        "fillerupper": "a placeholder because i worried about hooks (in des3d and another folder)"
+      }
+    },
+
+
+
+    "sim": {
       "parameters": {
         "modelname": "modelname",
         "max_steps": "max_steps: Max number of steps",
@@ -20,9 +38,18 @@
         "has_initial_checkpoint": "has_inital_checkpoint: Whether the model has an initial checkpoint",
         "has_marker_output": "has_marker_output: Whether model has output marker",
         "has_output_during_remeshing": "has_output_during_remeshing: Whether model has output during remeshing",
-        "is_outputting_averaged_fields": "is_outputting_averaged_fields: Whether model outputs averaged fields",
+        "is_outputting_averaged_fields": "is_outputting_averaged_fields: Whether model outputs averaged fields"
+      }
+    },
 
 
+
+
+    "mesh": {
+      "parameters": {
+        "meshing_option": "Meshing option",
+        "meshing_verbosity": "Meshing verbosity",
+        "tetgen_optlevel": "Tetgen optlevel",
         "xlength": "xlength: X-length of box (in meters)",
         "ylength": "ylength: Y-length of box (in meters)",
         "zlength": "zlength: Z-length of box (in meters)",
@@ -39,17 +66,27 @@
         "mmg_verbose": "mmg_verbose", 
         "mmg_hmax_factor": "mmg_hmax_factor", 
         "mmg_hmin_factor": "mmg_hmin_factor", 
-        "mmg_hausd_factor": "mmg_hausd_factor",
+        "mmg_hausd_factor": "mmg_hausd_factor"
+      }
+    },
 
 
+
+    "markers": {
+      "parameters": {
         "init_marker_option": "init_marker_option",
         "markers_per_element": "markers_per_element",
         "init_marker_spacing": "init_marker_spacing",
         "min_num_markers_in_element": "min_num_markers_in_element",
         "replenishment_option": "replenishment_option",
-        "random_seed": "random_seed",
+        "random_seed": "random_seed"
+      }
+    },
 
 
+
+    "control": {
+      "parameters": {
         "gravity": "gravity",
         "characteristic_speed": "characteristic_speed",
         "is_quasi_static": "is_quasi_static",
@@ -63,8 +100,14 @@
         "surface_diffusivity": "surface_diffusivity",
         "has_thermal_diffusion": "has_thermal_diffusion",
         "has_hydration_processes ": "has_hydration_processes",
-        "hydration_migration_speed": "hydration_migration_speed",
+        "hydration_migration_speed": "hydration_migration_speed"
+      }
+    },
 
+
+
+    "bc": {
+      "parameters": {
         "vbc_x0": "vbc_x0",
         "vbc_x1": "vbc_x1",
         "vbc_val_x0": "vbc_val_x0",
@@ -86,13 +129,20 @@
         "vbc_n3": "vbc_n3",
         "vbc_val_n3": "vbc_val_n3",
         "has_wrinkler_foundation": "has_wrinkler_foundation",
+        "wrinler_delta_rho": "wrinler_delta_rho",
         "has_elastic_foundation": "has_elastic_foundation",
         "elastic_foundation_constant": "elastic_foundation_constant",
         "has_water_loading": "has_water_loading",
         "surface_temperature": "surface_temperature",
-        "mantle_temperature": "mantle_temperature",
+        "mantle_temperature": "mantle_temperature"
+      }
+    },
 
 
+
+
+    "ic": {
+      "parameters":{
         "mattype_option": "mattype_option",
         
         "weakzone_option": "weakzone_option",
@@ -111,14 +161,21 @@
         "weakzone_ysemi_axis": "weakzone_ysemi_axis",
         "weakzone_zsemi_axis": "weakzone_zsemi_axis",
         "temperature_option": "temperature_option",
-        "oceanic_plate_age_in_yr": "oceanic_plate_age_in_yr",
-  
-      
-        "rheology_type": "rheology_type"
+        "oceanic_plate_age_in_yr": "oceanic_plate_age_in_yr"
       }
     },
 
-    
+
+
+    "mat": {
+      "parameters": {
+        "rheology_type": "rheology_type",
+        "is_plane_strain": "is_plane_strain",
+        "phase_change_option": "phase_change_option",
+        "num_materials": "num_materials"
+      }
+    },
+
 
 
     "analysis": {
