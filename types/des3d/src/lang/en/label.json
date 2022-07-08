@@ -1,30 +1,21 @@
 {
   "views": {
-    "des3dmodels": "DES3D Models",
     "sim": "sim: Simulation parameters",
     "mesh": "mesh: Create the mesh",
+    "mesh_conditional": "conditional parameters from mesh",
     "markers": "markers",
     "control": "control",
     "bc": "bc",
     "ic": "ic",
-    "mat": "mat",
-    "analyses": "Analyses"
+    "mat": "mat"
 
   },
 
 
 
   "attributes": {
-    "des3dmodel": {
-      "title": "DES3D Model",
-      "parameters": {
-        "fillerupper": "a placeholder because i worried about hooks (in des3d and another folder)"
-      }
-    },
-
-
-
     "sim": {
+      "title": "simulation",
       "parameters": {
         "modelname": "modelname",
         "max_steps": "max_steps: Max number of steps",
@@ -44,23 +35,23 @@
 
 
 
-
     "mesh": {
+      "title": "mesh parameters",
       "parameters": {
-        "meshing_option": "Meshing option",
-        "meshing_verbosity": "Meshing verbosity",
-        "tetgen_optlevel": "Tetgen optlevel",
+        "meshing_verbosity": "meshing_verbosity",
+        "tetgen_optlevel": "tetgen_optlevel",
         "xlength": "xlength: X-length of box (in meters)",
         "ylength": "ylength: Y-length of box (in meters)",
         "zlength": "zlength: Z-length of box (in meters)",
         "resolution": "resolution",
         "smallest_size": "smallest_size",
         "largest_size": "largest_size", 
-
+        "min_angle": "min_angle",
+        "min_tet_angle": "min_tet_angle",
+        "max_ratio": "max_ratio",
         "quality_check_step_interval": "quality_check_step_interval: How often model checks quality", 
         "min_quality": "min_quality", 
         "max_boundary_distortion": "max_boundary_distortion", 
-        "remeshing_option": "remeshing_option", 
         "is_discarding_internal_segments": "is_discarding_internal_segments", 
         "mmg_debug": "mmg_debug", 
         "mmg_verbose": "mmg_verbose", 
@@ -69,10 +60,45 @@
         "mmg_hausd_factor": "mmg_hausd_factor"
       }
     },
+    
+    "mesh_conditional": {
+      "title": "conditionals needed in mesh",
+      "paramters": {
+        "meshing_option": "meshing_option"
+      } 
+    },
+    "p_filename": {
+      "title": "poly_filename",
+      "parameters": {
+        "poly_filename": "poly_filename"
+      }
+    },
+    "ref_zonex": {
+      "title": "refined_zonex",
+      "parameters": {
+        "refined_zonex": "refined_zonex"
+      }
+    },
+    "ref_zoney": {
+      "title": "refined_zoney",
+      "parameters": {
+        "refined_zoney": "refined_zoney"
+      }
+    },
+    "ref_zonez": {
+      "title": "refined_zonez",
+      "parameters": {
+        "refined_zonez": "refined_zonez"
+      }
+    },
+
+
+
 
 
 
     "markers": {
+      "title": "markers",
       "parameters": {
         "init_marker_option": "init_marker_option",
         "markers_per_element": "markers_per_element",
@@ -86,6 +112,7 @@
 
 
     "control": {
+      "title": "control",
       "parameters": {
         "gravity": "gravity",
         "characteristic_speed": "characteristic_speed",
@@ -107,6 +134,7 @@
 
 
     "bc": {
+      "title": "bc",
       "parameters": {
         "vbc_x0": "vbc_x0",
         "vbc_x1": "vbc_x1",
@@ -142,6 +170,7 @@
 
 
     "ic": {
+      "title": "ic",
       "parameters":{
         "mattype_option": "mattype_option",
         
@@ -168,48 +197,13 @@
 
 
     "mat": {
+      "title": "mat",
       "parameters": {
         "rheology_type": "rheology_type",
         "is_plane_strain": "is_plane_strain",
         "phase_change_option": "phase_change_option",
         "num_materials": "num_materials"
       }
-    },
-
-
-
-    "analysis": {
-      "title": "Analysis",
-      "parameters": {
-        "type": "Type"
-      }
-    },
-    "histogram": {
-      "title": "Histogram",
-      "parameters": {
-        "mesh": "Mesh data",
-        "bins": "Bins"
-      }
-    },
-    "autocorrelation": {
-      "title": "Autocorrelation",
-      "parameters": {
-        "mesh": "Mesh data",
-        "window": "Window",
-        "kmax": "K-max"
-      }
-    },
-    "runParams": {
-      "title": "Execution parameters",
-      "parameters": {
-        "nodes": "Nodes",
-        "gridsize": "Grid size",
-        "dt": "Time step",
-        "endT": "Duration"
-      }
-    },
-    "oscillatorView": {
-      "title": "3D view"
     }
   }
 }

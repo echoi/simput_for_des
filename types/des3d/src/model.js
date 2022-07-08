@@ -1,16 +1,6 @@
 module.exports = {
-  order: ['des3dmodels', 'sim', 'mesh', 'markers', 'control', 'bc', 'ic', 'mat', 'analyses'],
+  order: ['sim', 'mesh', 'mesh_conditional', 'markers', 'control', 'bc', 'ic', 'mat'],
   views: {
-    des3dmodels: {
-      size: -1,
-      attributes: ['des3dmodel'],
-      hooks: [
-        {
-          type: 'copyParameterToViewName',
-          attribute: 'des3dmodel.name',
-        },
-      ],
-    },
     sim: {
       size: -1,
       attributes: ['sim'],
@@ -23,11 +13,21 @@ module.exports = {
     },
     mesh: {
       size: -1,
-      attributes: ['mesh_p1', 'mesh_cond', 'mesh_p2'], 
+      attributes: ['mesh'], 
       hooks: [
         {
           type: 'copyParameterToViewName',
           attribute: 'mesh.name',
+        },
+      ],
+    },
+    mesh_conditional: {
+      size: -1,
+      attributes: ['mesh_conditional'], 
+      hooks: [
+        {
+          type: 'copyParameterToViewName',
+          attribute: 'mesh_conditoinal.name',
         },
       ],
     },
@@ -81,29 +81,8 @@ module.exports = {
         },
       ],
     },
-    analyses: {
-      size: -1,
-      attributes: ['analysis'],
-      hooks: [
-        {
-          type: 'copyParameterToViewName',
-          attribute: 'analysis.name',
-        },
-      ],
-    },
   },
   definitions: {
-    des3dmodel: {
-      parameters: [
-        //sim
-        {
-          id: 'fillerupper',
-          type: 'string',
-          size: 1,
-          default: 'barleywheat',
-        }
-      ]
-    },
     sim: {
       parameters: [
         {
@@ -186,15 +165,9 @@ module.exports = {
         }
       ]
     },
-    mesh_p1: {
+
+    mesh: {
       parameters: [
-        //Start of mesh section in model.js
-        {
-          id: 'meshing_option',
-          type: 'int',
-          size: 1,
-          default: '1',
-        },
         {
           id: 'meshing_verbosity',
           type: 'int',
@@ -239,30 +212,28 @@ module.exports = {
         },
         {
           id: 'largest_size',
-          type: 'string',
+          type: 'int',
           size: 1,
           default: '30',
         },
-      ]
-    },
-    mesh_cond: {
-      parameters: [ 
-          //JSON code (label.json) based on quality ie 2/3d
-        //min_angle
-        //min_tet_angle
-        //max_ratio
-
-
-        //                 meshing option =2 
-        //refined_zonex
-        //refined_zoney
-        //refined_zonez
-        //                            meshing option = 90 or 95 
-        //poly_filename (times 2)
-      ]
-    },
-    mesh_p2: {
-      parameters: [
+        {
+          id: 'min_angle',
+          type: 'int',
+          size: 1,
+          default: '32',
+        },
+        {
+          id: 'min_tet_angle',
+          type: 'int',
+          size: 1,
+          default: '22',
+        },
+        {
+          id: 'max_ratio',
+          type: 'float',
+          size: 1,
+          default: '2.0',
+        },
         {
           id: 'quality_check_step_interval',
           type: 'string',
@@ -331,7 +302,75 @@ module.exports = {
         }
       ]
     },
-        //markers
+
+    mesh_conditional: {
+      parameters: [
+        {
+          id: 'meshing_option',
+          ui: 'enum',
+          type: 'string',
+          size: 1,
+          default: [0],
+          domain: {
+            "1": 1,
+            "2": 2,
+            "90": 90,
+            "95": 95,
+          },
+        },
+        ["p_filename", "ref_zonex", "ref_zoney", "ref_zonez"]
+      ],
+      children: {
+        p_filename: "mesh_conditional.meshing_option[0] === 90 || mesh_conditional.meshing_option [0] === 95",
+        ref_zonex: "mesh_conditional.meshing_option [0] === 2",
+        ref_zoney: "mesh_conditional.meshing_option [0] === 2",
+        ref_zonez: "mesh_conditional.meshing_option [0] === 2",
+      },
+    },
+    p_filename: {
+      parameters: [
+        {
+            id: 'poly_filename',
+            type: 'string',
+            size: 1,
+            default: 'mesh.poly',
+        },
+      ],
+    },
+    ref_zonex: {
+      parameters: [
+        {
+            id: 'refined_zonex',
+            type: 'string',
+            size: 1,
+            default: '[0.4, 0.6]',
+        },
+      ],
+    },
+    ref_zoney: {
+      parameters: [
+        {
+            id: 'refined_zoney',
+            type: 'string',
+            size: 1,
+            default: '[0.4, 0.6]',
+        },
+      ],
+    },
+    ref_zonez: {
+      parameters: [
+        {
+            id: 'refined_zonez',
+            type: 'string',
+            size: 1,
+            default: '[0.8, 1.0]',
+        },
+      ],
+    },
+
+    
+    
+    //markers
     markers: {
       parameters: [
         {
@@ -812,83 +851,8 @@ module.exports = {
         autocorrelation: "analysis.type[0] === 'autocorrelation'",
       },
     },
-    histogram: {
-       parameters: [
-          {
-              id: 'mesh',
-              type: 'enum',
-              size: 1,
-              default: 'mesh',
-              domain: {
-                Mesh: 'mesh',
-                'Unstructured mesh': 'ucdmesh',
-                'Particle velocity magnitude': 'particles',
-              },
-          },
-          {
-            id: 'bins',
-            type: 'int',
-            size: 1,
-            default: [10],
-          },
-       ],
-    },
-    autocorrelation: {
-       parameters: [
-          {
-              id: 'mesh',
-              type: 'enum',
-              size: 1,
-              default: 'mesh',
-              domain: {
-                // currently only works on one type.
-                Mesh: 'mesh',
-              },
-          },
-          {
-            id: 'window',
-            type: 'double',
-            size: 1,
-            default: [10],
-          },
-          {
-            id: 'kmax',
-            type: 'double',
-            size: 1,
-            default: [3],
-          },
-       ],
-    },
-    runParams: {
-      parameters: [
-        {
-          id: 'nodes',
-          type: 'int',
-          size: 1,
-          default: [1],
-        },
-        {
-          id: 'gridsize',
-          type: 'int',
-          size: 1,
-          default: [64],
-        },
-        {
-          id: 'dt',
-          type: 'double',
-          size: 1,
-          default: [0.1],
-        },
-        {
-          id: 'endT',
-          type: 'double',
-          size: 1,
-          default: [10],
-        },
-      ],
-    },
   },
-};
+
 
 // #############################################################################
 // # This is an input file for 2D/3D DynEarthSol. All available input parameters
@@ -902,3 +866,4 @@ module.exports = {
 // #
 // # Use command lne argument '--help' to see more description.
 // #############################################################################
+}; 
