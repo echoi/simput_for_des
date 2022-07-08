@@ -821,38 +821,136 @@ module.exports = {
           type: 'int',
           size: 1,
           default: '1',
-        }
-      ]
-    },
-        //more conditioals which are mroe streange
-
-    analysis: {
-      parameters: [
+        },
         {
-          id: 'name',
-          label: 'Name',
+          id: 'rho0',
           type: 'string',
           size: 1,
+          default: '3210',
         },
         {
-          id: 'type',
-          type: 'enum',
+          id: 'alpha',
+          type: 'string',
           size: 1,
-          default: 'histogram',
-          domain: {
-            Histogram: 'histogram',
-            Autocorrelation: 'autocorrelation',
-          },
+          default: '3e-5',
         },
-        ["histogram", "autocorrelation"],
-      ],
-      children: {
-        histogram: "analysis.type[0] === 'histogram'",
-        autocorrelation: "analysis.type[0] === 'autocorrelation'",
-      },
+        {
+          id: 'bulk_modus',
+          type: 'string',
+          size: 1,
+          default: '128.2e9',
+        },
+        {
+          id: 'shear_modulus',
+          type: 'string',
+          size: 1,
+          default: '80.5e9',
+        },
+        {
+          id: 'visc_exponent',
+          type: 'string',
+          size: 1,
+          default: '3.05',
+        },
+        {
+          id: 'visc_coefficient',
+          type: 'string',
+          size: 1,
+          default: '1.25e-1',
+        },
+        {
+          id: 'visc_activation_energy',
+          type: 'string',
+          size: 1,
+          default: '3.76e5',
+        },
+        {
+          id: 'heat_capacity',
+          type: 'string',
+          size: 1,
+          default: '1000',
+        },
+        {
+          id: 'therm_cond',
+          type: 'string',
+          size: 1,
+          default: '3',
+        },
+        {
+          id: 'pls0',
+          type: 'string',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'pls1',
+          type: 'string',
+          size: 1,
+          default: '0.1',
+        },
+        {
+          id: 'cohesion0',
+          type: 'string',
+          size: 1,
+          default: '4e7',
+        },
+        {
+          id: 'cohesion1',
+          type: 'string',
+          size: 1,
+          default: '4e6',
+        },
+        {
+          id: 'friction_angle0',
+          type: 'string',
+          size: 1,
+          default: '30',
+        },
+        {
+          id: 'friction_angle1',
+          type: 'string',
+          size: 1,
+          default: '5',
+        },
+        {
+          id: 'dilation_angle0',
+          type: 'string',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'dilation_angle1',
+          type: 'string',
+          size: 1,
+          default: '0',
+        },
+        {
+          id: 'max_viscosity',
+          type: 'string',
+          size: 1,
+          default: '1e24',
+        },
+        {
+          id: 'min_viscosity',
+          type: 'string',
+          size: 1,
+          default: '1e18',
+        },
+        {
+          id: 'max_tension',
+          type: 'string',
+          size: 1,
+          default: '1e9',
+        },
+        {
+          id: 'max_thermal_diffusivity',
+          type: 'string',
+          size: 1,
+          default: '5e-6',
+        },
+      ]
     },
   },
-
 
 // #############################################################################
 // # This is an input file for 2D/3D DynEarthSol. All available input parameters
