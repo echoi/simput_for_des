@@ -1,89 +1,41 @@
 module.exports = {
-  order: ['sim', 'mesh', 'mesh_conditional', 'markers', 'control', 'bc', 'ic', 'mat'],
+  order: ['sim_v', 'mesh_v', 'mesh_conditional_v', 'markers_v', 'control_v', 'bc_v', 'ic_v', 'mat_v'],
   views: {
-    sim: {
-      size: -1,
-      attributes: ['sim'],
-      hooks: [
-        {
-          type: 'copyParameterToViewName',
-          attribute: 'sim.name',
-        },
-      ],
+    sim_v: {
+      //size: -1,
+      attributes: ['sim_attr'],
     },
-    mesh: {
-      size: -1,
-      attributes: ['mesh'], 
-      hooks: [
-        {
-          type: 'copyParameterToViewName',
-          attribute: 'mesh.name',
-        },
-      ],
+    mesh_v: {
+      //size: -1,
+      attributes: ['mesh_attr'], 
     },
-    mesh_conditional: {
-      size: -1,
-      attributes: ['mesh_conditional'], 
-      hooks: [
-        {
-          type: 'copyParameterToViewName',
-          attribute: 'mesh_conditoinal.name',
-        },
-      ],
+    mesh_conditional_v: {
+      //size: -1,
+      attributes: ['mesh_conditional_attr'], 
     },
-    markers: {
-      size: -1,
-      attributes: ['markers'],
-      hooks: [
-        {
-          type: 'copyParameterToViewName',
-          attribute: 'markers.name',
-        },
-      ],
+    markers_v: {
+      //size: -1,
+      attributes: ['markers_attr'],
     },
-    control: {
-      size: -1,
-      attributes: ['control'],
-      hooks: [
-        {
-          type: 'copyParameterToViewName',
-          attribute: 'control.name',
-        },
-      ],
+    control_v: {
+      //size: -1,
+      attributes: ['control_attr'],
     },
-    bc: {
-      size: -1,
-      attributes: ['bc'],
-      hooks: [
-        {
-          type: 'copyParameterToViewName',
-          attribute: 'bc.name',
-        },
-      ],
+    bc_v: {
+      //size: -1,
+      attributes: ['bc_attr'],
     },
-    ic: {
-      size: -1,
-      attributes: ['ic'],
-      hooks: [
-        {
-          type: 'copyParameterToViewName',
-          attribute: 'ic.name',
-        },
-      ],
+    ic_v: {
+      //size: -1,
+      attributes: ['ic_attr'],
     },
-    mat: {
-      size: -1,
-      attributes: ['mat'],
-      hooks: [
-        {
-          type: 'copyParameterToViewName',
-          attribute: 'mat.name',
-        },
-      ],
+    mat_v: {
+      //size: -1,
+      attributes: ['mat_attr'],
     },
   },
   definitions: {
-    sim: {
+    sim_attr: {
       parameters: [
         {
           id: 'modelname',
@@ -166,7 +118,7 @@ module.exports = {
       ]
     },
 
-    mesh: {
+    mesh_attr: {
       parameters: [
         {
           id: 'meshing_verbosity',
@@ -303,7 +255,7 @@ module.exports = {
       ]
     },
 
-    mesh_conditional: {
+    mesh_conditional_attr: {
       parameters: [
         {
           id: 'meshing_option',
@@ -321,10 +273,10 @@ module.exports = {
         ["p_filename", "ref_zonex", "ref_zoney", "ref_zonez"]
       ],
       children: {
-        p_filename: "mesh_conditional.meshing_option[0] === 90 || mesh_conditional.meshing_option [0] === 95",
-        ref_zonex: "mesh_conditional.meshing_option [0] === 2",
-        ref_zoney: "mesh_conditional.meshing_option [0] === 2",
-        ref_zonez: "mesh_conditional.meshing_option [0] === 2",
+        p_filename: "mesh_conditional_attr.meshing_option[0] === 90 || mesh_conditional_attr.meshing_option [0] === 95",
+        ref_zonex: "mesh_conditional_attr.meshing_option [0] === 2",
+        ref_zoney: "mesh_conditional_attr.meshing_option [0] === 2",
+        ref_zonez: "mesh_conditional_attr.meshing_option [0] === 2",
       },
     },
     p_filename: {
@@ -371,7 +323,7 @@ module.exports = {
     
     
     //markers
-    markers: {
+    markers_attr: {
       parameters: [
         {
           id: 'init_marker_option',
@@ -412,7 +364,7 @@ module.exports = {
       ]
     },
         //control
-    control: {
+    control_attr: {
       parameters: [
         {
           id: 'gravity',
@@ -500,7 +452,7 @@ module.exports = {
         }
       ]
     },
-    bc: {
+    bc_attr: {
       parameters: [
         //bc
         {
@@ -667,7 +619,7 @@ module.exports = {
         }
       ]
     },
-    ic: {
+    ic_attr: {
       parameters: [
                 //ic
         {
@@ -788,7 +740,7 @@ module.exports = {
         //for teperature option 90 & others
       ]
     },
-    mat: {
+    mat_attr: {
       parameters: [
         {
           id: 'rheology_type',

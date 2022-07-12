@@ -23,6 +23,16 @@ export default [
     },
   },
   {
+    label: 'TEST DES3D',
+    image: Images.marker3d,
+    description: 'A Simput type used to test template files',
+    acknowledgement: '',
+    model: {
+      type: 'marker3d',
+      data: {},
+    },
+  },
+  {
     label: 'Address book',
     icon: 'mdi-contact-mail',
     description: 'Address book which generate vcs files',

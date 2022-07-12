@@ -1,110 +1,177 @@
-const outputTemplate = require('./des3d_list.hbs');
-const configTemplate = require('./analysis_config.hbs');
-const runTemplate = require('./run_script.hbs');
 
-/*
-# type      center          r       omega0      zeta
-*/
-
-const COLUMN_SPACING = 5;
+const simTemplate = require('./sim.hbs');
+const meshTemplate = require('./mesh.hbs');
+const markersTemplate = require('./markers.hbs');
+const controlTemplate = require('./control.hbs');
+const bcTemplate = require('./bc.hbs');
+const icTemplate = require('./ic.hbs');
+const matTemplate = require('./mat.hbs');
 
 module.exports = function convert(dataModel) {
-  const results = {};
-  // Start with a standard header
-  const lines = [['# type  ', 'center  ', 'r  ', 'omega0  ', 'zeta']];
+    const results = {};
 
-  dataModel.data.oscillators.forEach((attributes) => {
-    const oscillator = {};
-    Object.keys(attributes.oscillator).forEach((fieldName) => {
-      const value = attributes.oscillator[fieldName].value;
-      if (value.length === 1) {
-        oscillator[fieldName] = value[0];
-      } else {
-        oscillator[fieldName] = value;
-      }
-    });
-    lines.push([
-      `${oscillator.type}`,
-      `${oscillator.center[0]} ${oscillator.center[1]} ${oscillator.center[2]}`,
-      `${oscillator.radius}`,
-      `${oscillator.omega0}`,
-      `${oscillator.zeta || ''}`,
-    ]);
-  });
 
-  // Compute max size of each column
-  const sizes = [0, 0, 0, 0, 0];
-  for (let lineIdx = 0; lineIdx < lines.length; lineIdx++) {
-    const line = lines[lineIdx];
-    for (let tokenIdx = 0; tokenIdx < line.length; tokenIdx++) {
-      sizes[tokenIdx] = Math.max(sizes[tokenIdx], line[tokenIdx].length);
+    const sim_attr = {};
+    if (dataModel.data.sim_v) {
+      const sim_params = dataModel.data.sim_v[0].sim_attr;
+      Object.keys(sim_params).forEach((fieldName) => {
+        const value = sim_params[fieldName].value;
+        if (value.length === 1) {
+         sim_attr[fieldName] = value[0];
+        } else {
+          sim_attr[fieldName] = value;
+        }
+      });
     }
-  }
 
-  // Add padding to align columns
-  for (let lineIdx = 0; lineIdx < lines.length; lineIdx++) {
-    const line = lines[lineIdx];
-    for (let tokenIdx = 0; tokenIdx < line.length; tokenIdx++) {
-      while (line[tokenIdx].length < sizes[tokenIdx] + COLUMN_SPACING) {
-        line[tokenIdx] += ' ';
-      }
+
+    results['sim.cfg'] = simTemplate(sim_attr);
+
+
+    //do it later or don't merge at all
+    const mesh_attr = {};
+    if (dataModel.data.mesh_v) {
+      const mesh_params = dataModel.data.mesh_v[0].mesh_attr;
+      Object.keys(mesh_params).forEach((fieldName) => {
+        const value = mesh_params[fieldName].value;
+        if (value.length === 1) {
+          mesh_attr[fieldName] = value[0];
+        } else {
+          mesh_attr[fieldName] = value;
+        }
+      });
     }
-    // collapse tokens
-    lines[lineIdx] = { line: lines[lineIdx].join('') };
-  }
 
-  // Use dummy line writer
-  results['des3d_list.osc'] = outputTemplate({ lines });
+    results['mesh.cfg'] = meshTemplate(mesh_attr);
 
-  // analyses, have sub-object matching type, with the attributes.
-  const histogram = [];
-  const autocorrelation = [];
-  dataModel.data.analyses.forEach((attributes) => {
-    const analysis = {};
-    const type = attributes.analysis.type.value[0];
-    Object.keys(attributes[type]).forEach((fieldName) => {
-      const value = attributes[type][fieldName].value;
-      if (value.length === 1) {
-        analysis[fieldName] = value[0];
-      } else {
-        analysis[fieldName] = value;
-      }
-    });
-    console.log(analysis);
-    if (type === 'histogram') {
-      // fill in associated fields.
-      if (analysis.mesh === 'particles') {
-        analysis.array = "velocityMagnitude";
-        analysis.association="point";
-      } else {
-        analysis.array = "data";
-        analysis.association="cell";
-      }
-      histogram.push(analysis);
-    } else if (type === 'autocorrelation') {
-      autocorrelation.push(analysis);
+    const mesh_conditional_attr = {};
+    if (dataModel.data.mesh_conditional_v) {
+      const mesh_params = dataModel.data.mesh_conditional_v[0].mesh_conditional_attr;
+      Object.keys(mesh_params).forEach((fieldName) => {
+        const value = mesh_params[fieldName].value;
+        if (value.length === 1) {
+          mesh_conditional_attr[fieldName] = value[0];
+        } else {
+          mesh_conditional_attr[fieldName] = value;
+        }
+      });
     }
-  });
-
-  // analysis xml
-  results['analysis_config.xml'] = configTemplate({ histogram, autocorrelation });
 
 
-  const runParams = {};
-  if (dataModel.data.run) {
-    const params = dataModel.data.run[0].runParams;
-    Object.keys(params).forEach((fieldName) => {
-      const value = params[fieldName].value;
-      if (value.length === 1) {
-        runParams[fieldName] = value[0];
-      } else {
-        runParams[fieldName] = value;
-      }
-    });
-  }
+    results['conditional_mesh.cfg'] = meshTemplate(mesh_conditional_attr);
+  
 
-  // analysis xml
-  results['run.sh'] = runTemplate(runParams);
+    const marker_attr = {};
+    if (dataModel.data.markers_v) {
+      const params = dataModel.data.markers_v[0].marker_attr;
+      Object.keys(params).forEach((fieldName) => {
+        const value = params[fieldName].value;
+        if (value.length === 1) {
+          marker_attr[fieldName] = value[0];
+        } else {
+          marker_attr[fieldName] = value;
+        }
+      });
+    }
 
-  return { results, model: dataModel };
+    results['markers.cfg'] = markersTemplate(marker_attr);
+
+
+    const control_attr = {};
+    if (dataModel.data.control_v) {
+      const control_params = dataModel.data.control_v[0].control_attr;
+      Object.keys(control_params).forEach((fieldName) => {
+        const value = control_params[fieldName].value;
+        if (value.length === 1) {
+          control_attr[fieldName] = value[0];
+        } else {
+          control_attr[fieldName] = value;
+        }
+      });
+    }
+
+
+    results['control.cfg'] = controlTemplate(control_attr);
+
+
+
+    const bc_attr = {};
+    if (dataModel.data.bc_v) {
+      const bc_params = dataModel.data.bc_v[0].bc_attr;
+      Object.keys(bc_params).forEach((fieldName) => {
+        const value = bc_params[fieldName].value;
+        if (value.length === 1) {
+          bc_attr[fieldName] = value[0];
+        } else {
+          bc_attr[fieldName] = value;
+        }
+      });
+    }
+
+
+    results['bc.cfg'] = bcTemplate(bc_attr);
+
+
+
+
+    const ic_attr = {};
+    if (dataModel.data.ic_v) {
+      const ic_params = dataModel.data.ic_v[0].ic_attr;
+      Object.keys(ic_params).forEach((fieldName) => {
+        const value = ic_params[fieldName].value;
+        if (value.length === 1) {
+          ic_attr[fieldName] = value[0];
+        } else {
+          ic_attr[fieldName] = value;
+        }
+      });
+    }
+
+    results['ic.cfg'] = icTemplate(ic_attr);
+
+
+
+
+    const mat_attr = {};
+    if (dataModel.data.mat_v) {
+      const mat_params = dataModel.data.mat_v[0].mat_attr;
+      Object.keys(mat_params).forEach((fieldName) => {
+        const value = mat_params[fieldName].value;
+        if (value.length === 1) {
+          mat_attr[fieldName] = value[0];
+        } else {
+          mat_attr[fieldName] = value;
+        }
+      });
+    }
+
+
+
+
+    results['mat.cfg'] = matTemplate(mat_attr);
+
+
+
+
+  
+    return { results, model: dataModel };
 };
+ 
+//dataModel I think is defined elsewhere
+//markers_v
+//markers_attr
+//fieldName
+//params
+//results (only once)
+
+
+//module.exports{
+//const attribute = {}
+//if (dataModel.data.view) {
+//  const dummyvar = dataModel.data.view[0].attr
+//  object.keys(dummyvar).forEach(fieldName) -> {
+//      const value = dummyvar[fieldName].value
+//      if asdasd etc. 
+//      }   
+//  }
+//};

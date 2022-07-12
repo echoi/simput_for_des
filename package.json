@@ -35,6 +35,7 @@
     "type:nwchem": "node ./src/cli/simput-cli.js -c ./types/nwchem/src -o ./static/types -t nwchem",
     "type:nwchem-neb": "node ./src/cli/simput-cli.js -c ./types/nwchem-neb/src -o ./static/types -t nwchem-neb",
     "type:des3d": "node ./src/cli/simput-cli.js -c ./types/des3d/src -o ./static/types -t des3d",
+    "type:marker3d": "node ./src/cli/simput-cli.js -c ./types/marker3d/src -o ./static/types -t marker3d",
     "type:openfoam-periodic": "node ./src/cli/simput-cli.js -c ./types/openfoam-periodic/src -o ./static/types -t openfoam-periodic",
     "type:openfoam-tutorials": "node ./src/cli/simput-cli.js -c ./types/openfoam-tutorials/src -o ./static/types -t openfoam-tutorials",
     "type:openfoam-windtunnel": "node ./src/cli/simput-cli.js -c ./types/openfoam-windtunnel/src -o ./static/types -t openfoam-windtunnel",

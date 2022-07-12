@@ -1,20 +1,20 @@
 {
   "views": {
-    "sim": "sim: Simulation parameters",
-    "mesh": "mesh: Create the mesh",
-    "mesh_conditional": "conditional parameters from mesh",
-    "markers": "markers",
-    "control": "control",
-    "bc": "bc",
-    "ic": "ic",
-    "mat": "mat"
+    "sim_v": "sim: Simulation parameters",
+    "mesh_v": "mesh: Create the mesh",
+    "mesh_conditional_v": "conditional parameters from mesh",
+    "markers_v": "markers",
+    "control_v": "control",
+    "bc_v": "bc",
+    "ic_v": "ic",
+    "mat_v": "mat"
 
   },
 
 
 
   "attributes": {
-    "sim": {
+    "sim_attr": {
       "title": "simulation",
       "parameters": {
         "modelname": "modelname",
@@ -35,7 +35,7 @@
 
 
 
-    "mesh": {
+    "mesh_attr": {
       "title": "mesh parameters",
       "parameters": {
         "meshing_verbosity": "meshing_verbosity",
@@ -61,7 +61,7 @@
       }
     },
     
-    "mesh_conditional": {
+    "mesh_conditional_attr": {
       "title": "conditionals needed in mesh",
       "paramters": {
         "meshing_option": "meshing_option"
@@ -97,7 +97,7 @@
 
 
 
-    "markers": {
+    "markers_attr": {
       "title": "markers",
       "parameters": {
         "init_marker_option": "init_marker_option",
@@ -111,7 +111,7 @@
 
 
 
-    "control": {
+    "control_attr": {
       "title": "control",
       "parameters": {
         "gravity": "gravity",
@@ -133,7 +133,7 @@
 
 
 
-    "bc": {
+    "bc_attr": {
       "title": "bc",
       "parameters": {
         "vbc_x0": "vbc_x0",
@@ -157,7 +157,7 @@
         "vbc_n3": "vbc_n3",
         "vbc_val_n3": "vbc_val_n3",
         "has_wrinkler_foundation": "has_wrinkler_foundation",
-        "wrinler_delta_rho": "wrinler_delta_rho",
+        "wrinkler_delta_rho": "wrinler_delta_rho",
         "has_elastic_foundation": "has_elastic_foundation",
         "elastic_foundation_constant": "elastic_foundation_constant",
         "has_water_loading": "has_water_loading",
@@ -169,7 +169,7 @@
 
 
 
-    "ic": {
+    "ic_attr": {
       "title": "ic",
       "parameters":{
         "mattype_option": "mattype_option",
@@ -196,7 +196,7 @@
 
 
 
-    "mat": {
+    "mat_attr": {
       "title": "mat: the parameters, starting with /'rho0/' and ending with /'dilation_angle1/' should have either 1 value or as many values as the integer entered in 'num_materials'",
       "parameters": {
         "rheology_type": "rheology_type",

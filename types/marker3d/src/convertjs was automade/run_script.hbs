@@ -1,0 +1,11 @@
+#!/bin/bash -l
+
+init_marker_option={{init_marker_option}}
+markers_per_element={{markers_per_element}}
+init_marker_spacing={{init_marker_spacing}}
+min_num_max_numbers_in_element={{min_num_max_numbers_in_element}}
+replenishment_option={{replenishment_option}}
+random_seed={{random_seed}}
+#!/exe=markers3d
+
+#!/mpirun -n $numranks $exe -s $grid --dt $dt --t-end $

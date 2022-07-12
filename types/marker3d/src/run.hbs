@@ -1,0 +1,19 @@
+#!/bin/bash -l
+
+
+Type: markers
+Varname                         inputted value
+init_marker_option=             {{init_marker_option}}
+markers_per_element=            {{markers_per_element}}
+init_marker_spacing=            {{init_marker_spacing}}
+min_num_markers_in_element=     {{min_num_markers_in_element}}
+replenishment_option=           {{replenishment_option}}
+random_seed=                    {{random_seed}}
+
+
+
+#!/osc=oscillator_list.osc
+#!/xml=analysis_config.xml
+#!/exe=oscillator
+
+#!/mpirun -n $numranks $exe -s $grid --dt $dt --t-end $endt --shortlog -f $xml $osc
