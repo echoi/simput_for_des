@@ -1,0 +1,22 @@
+echo
+
+start molecule
+
+title "{{title}}"
+charge {{charge}}
+
+geometry units angstroms print xyz autosym
+{{#if input}}
+load {{input}}
+{{/if}}
+end
+
+basis {{basis}}
+  * library {{theory_basis}}
+end
+
+{{#if theory}}
+{{theory}}
+{{/if}}
+
+task {{theory_type}} {{calculation_type}}

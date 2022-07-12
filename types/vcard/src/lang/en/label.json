@@ -1,0 +1,19 @@
+{
+  "views": {
+    "AddressBook": "Address Book"
+  },
+  "attributes": {
+    "person": {
+      "title": "Contact Information",
+      "parameters": {
+        "firstName": "First name",
+        "lastName" : "Last name",
+        "street" : "Street",
+        "city" : "City",
+        "state" : "State",
+        "zip" : "Zip code",
+        "country": "Country"
+      }
+    }
+  }
+}

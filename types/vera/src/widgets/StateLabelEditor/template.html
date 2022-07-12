@@ -1,0 +1,22 @@
+<v-container fluid v-show="isVisible()" key="text-prop" :class="$style.container">
+  <v-layout wrap>
+    <v-flex xs12>
+      <label
+        v-for="controlLabel in controlLabels"
+        :key="controlLabel"
+        style="display: block"
+      >
+        {{ controlLabel }}:
+        <input
+          type="number"
+          min="0"
+          max="coreHeight"
+          step="1"
+          :value="Number(rodbank[controlLabel] || 0)"
+          :class="$style.textbox"
+          @input="onStepChange(controlLabel, Number($event.target.value || 0))"
+        />
+      </label>
+    </v-flex>
+  </v-layout>
+</v-container>

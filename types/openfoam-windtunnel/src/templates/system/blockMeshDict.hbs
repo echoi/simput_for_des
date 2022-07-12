@@ -1,0 +1,93 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.1                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 1;
+
+vertices
+(
+    ({{[../item] tunnel.bounds 0}} {{[../item] tunnel.bounds 2}} {{[../item] tunnel.bounds 4}})
+    ({{[../item] tunnel.bounds 1}} {{[../item] tunnel.bounds 2}} {{[../item] tunnel.bounds 4}})
+    ({{[../item] tunnel.bounds 1}} {{[../item] tunnel.bounds 3}} {{[../item] tunnel.bounds 4}})
+    ({{[../item] tunnel.bounds 0}} {{[../item] tunnel.bounds 3}} {{[../item] tunnel.bounds 4}})
+    ({{[../item] tunnel.bounds 0}} {{[../item] tunnel.bounds 2}} {{[../item] tunnel.bounds 5}})
+    ({{[../item] tunnel.bounds 1}} {{[../item] tunnel.bounds 2}} {{[../item] tunnel.bounds 5}})
+    ({{[../item] tunnel.bounds 1}} {{[../item] tunnel.bounds 3}} {{[../item] tunnel.bounds 5}})
+    ({{[../item] tunnel.bounds 0}} {{[../item] tunnel.bounds 3}} {{[../item] tunnel.bounds 5}})
+);
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7) ({{{[../vector] meshSize.dimensions}}}) simpleGrading ({{{[../vector] meshSize.grading}}})
+);
+
+edges
+(
+);
+
+boundary
+(
+    {{{tunnel.walls.x.plus}}}
+    {
+        type {{[../wallType] tunnel.walls.x.plus}};
+        faces
+        (
+          (2 6 5 1)
+        );
+    }
+    {{{tunnel.walls.x.minus}}}
+    {
+        type {{[../wallType] tunnel.walls.x.minus}};
+        faces
+        (
+          (0 4 7 3)
+        );
+    }
+    {{{tunnel.walls.y.plus}}}
+    {
+        type {{[../wallType] tunnel.walls.y.plus}};
+        faces
+        (
+          (3 7 6 2)
+        );
+    }
+    {{{tunnel.walls.y.minus}}}
+    {
+        type {{[../wallType] tunnel.walls.y.minus}};
+        faces
+        (
+          (1 5 4 0)
+        );
+    }
+    {{{tunnel.walls.z.plus}}}
+    {
+        type {{[../wallType] tunnel.walls.z.plus}};
+        faces
+        (
+          (4 5 6 7)
+        );
+    }
+    {{{tunnel.walls.z.minus}}}
+    {
+        type {{[../wallType] tunnel.walls.z.minus}};
+        faces
+        (
+          (0 3 2 1)
+        );
+    }
+);
+
+// ************************************************************************* //

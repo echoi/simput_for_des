@@ -1,0 +1,1277 @@
+{
+   "order": [
+      "InitialConditions", "WindTunnel", "Parameters", "Solvers", "Decomposition", "Mesh", "Runtime"
+   ],
+   "views" : {
+      "InitialConditions": {
+        "attributes": [ "initconst", "initfields", "transport" ]
+      },
+      "WindTunnel": {
+        "attributes": [ "wallBounds", "wallAssign" ]
+      },
+      "Parameters": {
+        "attributes": [ "controldictTime", "controldictWrite" ]
+      },
+      "Solvers": {
+        "attributes": [ "solver-p", "solver-U", "solver-k", "solver-omega", "correctors", "relaxationFactors" ]
+      },
+      "Decomposition": {
+        "attributes": [ "decomposeParDict", "decomposition_simpleCoeffs", "decomposition_hierarchicalCoeffs", "forceCoeffs" ]
+      },
+      "Mesh": {
+        "attributes": [ "meshSize", "meshQuality", "meshRefinement" ]
+      },
+      "Runtime": {
+        "children": [ "castellatedMeshControls", "snapControls", "addLayersControls" ]
+      },
+      "castellatedMeshControls": {
+        "attributes": ["castellatedMeshControls"]
+      },
+      "snapControls": {
+        "attributes": ["snapControls"]
+      },
+      "addLayersControls": {
+        "attributes": ["addLayersControls"]
+      }
+   },
+   "external": {
+      "meshName": "motorBike",
+      "meshBounds": [-0.292, 1.75, -0.35, 0.332, -4.23e-05, 1.35]
+   },
+   "definitions": {
+      "initconst": {
+         "parameters": [
+            {
+              "id": "initialConditions.flowVelocity",
+              "type": "double",
+              "size": 3,
+              "layout": "3",
+              "default": [20, 0, 0]
+            },
+            {
+              "id": "initialConditions.pressure",
+              "type": "double",
+              "size": 1,
+              "default": [0]
+            },
+            {
+              "id": "initialConditions.turbulentKE",
+              "type": "double",
+              "size": 1,
+              "default": [0.24]
+            },
+            {
+              "id": "initialConditions.turbulentOmega",
+              "type": "double",
+              "size": 1,
+              "default": [1.78]
+            }
+         ]
+      },
+      "initfields": {
+        "parameters": [
+          {
+            "id": "fields.k.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -2, 0, 0, 0, 0]
+          },{
+            "id": "fields.nut.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "id": "fields.omega.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 0, -1, 0, 0, 0, 0]
+          },{
+            "id": "fields.p.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -2, 0, 0, 0, 0]
+          },{
+            "id": "fields.U.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 1, -1, 0, 0, 0, 0]
+          },{
+            "id": "fields.U.inletValue",
+            "type": "double",
+            "size": 3,
+            "layout": "3",
+            "default": [0, 0, 0]
+          }
+        ]
+      },
+      "transport": {
+        "parameters": [
+          {
+            "id": "transport.model",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["Newtonian"],
+            "domain"   : {
+               "Newtonian": "Newtonian",
+               "BirdCarreau": "BirdCarreau",
+               "CrossPowerLaw": "CrossPowerLaw",
+               "powerLaw": "powerLaw",
+               "HerschelBulkley": "HerschelBulkley",
+               "Casson": "Casson"
+            }
+          },
+          ["Newtonian", "BirdCarreau", "CrossPowerLaw", "powerLaw", "HerschelBulkley", "Casson"]
+        ],
+        "children": {
+          "Newtonian": "transport['transport.model'][0] === 'Newtonian'",
+          "BirdCarreau": "transport['transport.model'][0] === 'BirdCarreau'",
+          "CrossPowerLaw": "transport['transport.model'][0] === 'CrossPowerLaw'",
+          "powerLaw": "transport['transport.model'][0] === 'powerLaw'",
+          "HerschelBulkley": "transport['transport.model'][0] === 'HerschelBulkley'",
+          "Casson": "transport['transport.model'][0] === 'Casson'"
+        }
+      },
+      "Newtonian": {
+        "parameters": [
+          {
+            "id": "Newtonian.nu.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "id": "Newtonian.nu.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1.5e-05
+          }
+        ]
+      },
+      "BirdCarreau": {
+        "parameters": [
+          {
+            "id": "BirdCarreau.nu0.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "id": "BirdCarreau.nu0.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-03
+          },{
+            "id": "BirdCarreau.nuInf.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "id": "BirdCarreau.nuInf.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-05
+          },{
+            "id": "BirdCarreau.k.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 0, 1, 0, 0, 0, 0]
+          },{
+            "id": "BirdCarreau.k.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1
+          },{
+            "id": "BirdCarreau.n.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 0, 0, 0, 0, 0, 0]
+          },{
+            "id": "BirdCarreau.n.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 0.5
+          }
+        ]
+      },
+      "CrossPowerLaw": {
+        "parameters": [
+          {
+            "id": "CrossPowerLaw.nu0.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "id": "CrossPowerLaw.nu0.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-03
+          },{
+            "id": "CrossPowerLaw.nuInf.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "id": "CrossPowerLaw.nuInf.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-05
+          },{
+            "id": "CrossPowerLaw.m.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 0, 1, 0, 0, 0, 0]
+          },{
+            "id": "CrossPowerLaw.m.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1
+          },{
+            "id": "CrossPowerLaw.n.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 0, 0, 0, 0, 0, 0]
+          },{
+            "id": "CrossPowerLaw.n.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 0.5
+          }
+        ]
+      },
+      "powerLaw": {
+        "parameters": [
+          {
+            "id": "powerLaw.nuMax.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "id": "powerLaw.nuMax.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-03
+          },{
+            "id": "powerLaw.nuMin.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "id": "powerLaw.nuMin.epsilon",
+            "type": "double",
+            "size": 1,
+            "layout": "n",
+            "default": 1e-05
+          },{
+            "id": "powerLaw.k.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "id": "powerLaw.k.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-05
+          },{
+            "id": "powerLaw.n.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 0, 0, 0, 0, 0, 0]
+          },{
+            "id": "powerLaw.n.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1
+          }
+        ]
+      },
+      "HerschelBulkley": {
+        "parameters": [
+          {
+            "id": "HerschelBulkley.nu0.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "id": "HerschelBulkley.nu0.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-03
+          },{
+            "id": "HerschelBulkley.tau0.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -2, 0, 0, 0, 0]
+          },{
+            "id": "HerschelBulkley.tau0.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1
+          },{
+            "id": "HerschelBulkley.k.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "id": "HerschelBulkley.k.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-05
+          },{
+            "id": "HerschelBulkley.n.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 0, 0, 0, 0, 0, 0]
+          },{
+            "id": "HerschelBulkley.n.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1
+          }
+        ]
+      },
+      "Casson": {
+        "parameters": [
+          {
+            "id": "Casson.m.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "id": "Casson.m.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 3.934986e-6
+          },{
+            "id": "Casson.tau0.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -2, 0, 0, 0, 0]
+          },{
+            "id": "Casson.tau0.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 2.9032e-6
+          },{
+            "id": "Casson.nuMax.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "id": "Casson.nuMax.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 13.3333e-6
+          },{
+            "id": "Casson.nuMin.dimensions",
+            "type": "double",
+            "size": 7,
+            "layout": "n",
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "id": "Casson.nuMin.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 3.9047e-6
+          }
+        ]
+      },
+      "wallBounds": {
+        "parameters": [
+          {
+            "id": "tunnel.bounds.x",
+            "type": "double",
+            "size": 2,
+            "layout": "2",
+            "default": [-5, 15]
+          },{
+            "id": "tunnel.bounds.y",
+            "type": "double",
+            "size": 2,
+            "layout": "2",
+            "default": [-4, 4]
+          },{
+            "id": "tunnel.bounds.z",
+            "type": "double",
+            "size": 2,
+            "layout": "2",
+            "default": [0, 8]
+          }
+        ]
+      },
+      "wallAssign": {
+        "parameters": [
+          {
+            "id": "tunnel.walls.x.plus",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["outlet"],
+            "domain"   : {
+               "outlet": "outlet",
+               "inlet": "inlet",
+               "leftWall": "leftWall",
+               "rightWall": "rightWall",
+               "topWall": "topWall",
+               "bottomWall": "bottomWall"
+            }
+          },{
+            "id": "tunnel.walls.x.minus",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["inlet"],
+            "domain"   : {
+               "outlet": "outlet",
+               "inlet": "inlet",
+               "leftWall": "leftWall",
+               "rightWall": "rightWall",
+               "topWall": "topWall",
+               "bottomWall": "bottomWall"
+            }
+          },{
+            "id": "tunnel.walls.y.plus",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["rightWall"],
+            "domain"   : {
+               "outlet": "outlet",
+               "inlet": "inlet",
+               "leftWall": "leftWall",
+               "rightWall": "rightWall",
+               "topWall": "topWall",
+               "bottomWall": "bottomWall"
+            }
+          },{
+            "id": "tunnel.walls.y.minus",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["leftWall"],
+            "domain"   : {
+               "outlet": "outlet",
+               "inlet": "inlet",
+               "leftWall": "leftWall",
+               "rightWall": "rightWall",
+               "topWall": "topWall",
+               "bottomWall": "bottomWall"
+            }
+          },{
+            "id": "tunnel.walls.z.plus",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["topWall"],
+            "domain"   : {
+               "outlet": "outlet",
+               "inlet": "inlet",
+               "leftWall": "leftWall",
+               "rightWall": "rightWall",
+               "topWall": "topWall",
+               "bottomWall": "bottomWall"
+            }
+          },{
+            "id": "tunnel.walls.z.minus",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["bottomWall"],
+            "domain"   : {
+               "outlet": "outlet",
+               "inlet": "inlet",
+               "leftWall": "leftWall",
+               "rightWall": "rightWall",
+               "topWall": "topWall",
+               "bottomWall": "bottomWall"
+            }
+          }
+        ]
+      },
+      "controldictTime": {
+        "parameters": [
+          {
+            "id": "controldictTimeStartFrom",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["startTime"],
+            "domain"   : {
+               "startTime": "startTime",
+               "firstTime": "firstTime",
+               "latestTime": "latestTime"
+            }
+          },{
+            "id": "controldict.time.startTime",
+            "type": "double",
+            "size": 1,
+            "default": [0],
+            "show": "controldictTimeStartFrom[0] === 'startTime'"
+          },{
+            "id": "controldict.time.end",
+            "type": "double",
+            "size": 1,
+            "default": [500]
+          },{
+            "id": "controldict.time.delta",
+            "type": "double",
+            "size": 1,
+            "default": [1]
+          }
+        ]
+      },
+      "controldictWrite": {
+        "parameters": [
+          {
+            "id": "controldict.write.control",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["timeStep"],
+            "domain"   : {
+               "timeStep": "timeStep",
+               "runTime": "runTime",
+               "adjustableRunTime": "adjustableRunTime",
+               "cpuTime": "cpuTime",
+               "clockTime": "clockTime"
+            }
+          },{
+            "id": "controldict.write.interval",
+            "type": "double",
+            "size": 1,
+            "default": [100]
+          },{
+            "id": "controldict.write.format",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["binary"],
+            "domain"   : {
+               "ascii": "ascii",
+               "binary": "binary"
+            }
+          },{
+            "id": "controldict.write.precision",
+            "type": "integer",
+            "size": 1,
+            "default": [6]
+          },{
+            "id": "controldict.write.gzip",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["yes"],
+            "domain"   : {
+               "yes": "yes",
+               "no": "no"
+            }
+          },{
+            "id": "controldict.write.time.format",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["general"],
+            "domain"   : {
+               "general": "general",
+               "fixed": "fixed",
+               "scientific": "scientific"
+            }
+          },{
+            "id": "controldict.write.time.precision",
+            "type": "integer",
+            "size": 1,
+            "default": [6]
+          },{
+            "id": "controldict.write.graph.format",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["raw"],
+            "domain"   : {
+               "raw": "raw",
+               "gnuplot": "gnuplot",
+               "xmgr": "xmgr",
+               "jplot": "jplot"
+            }
+          }
+        ]
+      },
+      "decomposeParDict": {
+        "parameters": [
+          {
+            "id": "decomposeParDict.subdomains",
+            "type": "integer",
+            "size": 1,
+            "default": [6]
+          },{
+            "id": "decomposeParDict.method",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["hierarchical"],
+            "domain"   : {
+               "hierarchical": "hierarchical",
+               "ptscotch": "ptscotch"
+            }
+          }
+        ]
+      },
+      "decomposition_simpleCoeffs": {
+        "parameters": [
+          {
+            "id": "decomposeParDict.simpleCoeffs.n",
+            "type": "double",
+            "size": 3,
+            "layout": "3",
+            "default": [4, 1, 1]
+          },
+          {
+            "id": "decomposeParDict.simpleCoeffs.delta",
+            "type": "double",
+            "size": 1,
+            "default": [0.001]
+          }
+        ]
+      },
+      "decomposition_hierarchicalCoeffs": {
+        "parameters": [
+          {
+            "id": "decomposeParDict.hierarchicalCoeffs.n",
+            "type": "double",
+            "size": 3,
+            "layout": "3",
+            "default": [3, 2, 1]
+          },{
+            "id": "decomposeParDict.hierarchicalCoeffs.delta",
+            "type": "double",
+            "size": 1,
+            "default": [0.001]
+          },{
+            "id": "decomposeParDict.hierarchicalCoeffs.order",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["xyz"],
+            "domain"   : {
+               "xyz": "xyz",
+               "xzy": "xzy",
+               "yxz": "yxz",
+               "yzx": "yzx",
+               "zyx": "zyx",
+               "zxy": "zxy"
+            }
+          }
+        ]
+      },
+      "forceCoeffs": {
+        "parameters": [
+          {
+            "id": "forceCoeffs.write.control",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["timeStep"],
+            "domain"   : {
+               "timeStep": "timeStep",
+               "runTime": "runTime",
+               "adjustableRunTime": "adjustableRunTime",
+               "cpuTime": "cpuTime",
+               "clockTime": "clockTime"
+            }
+          },{
+            "id": "forceCoeffs.write.interval",
+            "type": "double",
+            "size": 1,
+            "default": [1]
+          },{
+            "id": "forceCoeffs.write.log",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["yes"],
+            "domain"   : {
+               "yes": "yes",
+               "no": "no"
+            }
+          },{
+            "id": "forceCoeffs.liftDir",
+            "type": "double",
+            "size": 3,
+            "layout": "3",
+            "default": [0, 0, 1]
+          },{
+            "id": "forceCoeffs.dragDir",
+            "type": "double",
+            "size": 3,
+            "layout": "3",
+            "default": [1, 0, 0]
+          },{
+            "id": "forceCoeffs.CofR",
+            "type": "double",
+            "size": 3,
+            "layout": "3",
+            "default": [0.72, 0, 0]
+          },{
+            "id": "forceCoeffs.pitchAxis",
+            "type": "double",
+            "size": 3,
+            "layout": "3",
+            "default": [0, 1, 0]
+          },{
+            "id": "forceCoeffs.magUInf",
+            "type": "double",
+            "size": 1,
+            "default": [20]
+          },{
+            "id": "forceCoeffs.lRef",
+            "type": "double",
+            "size": 1,
+            "default": [1.42]
+          },{
+            "id": "forceCoeffs.Aref",
+            "type": "double",
+            "size": 1,
+            "default": [0.75]
+          }
+        ]
+      },
+      "solver-p": {
+        "parameters": [
+          {
+            "id": "solver.p.solver",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["GAMG"],
+            "domain"   : {
+               "GAMG": "GAMG",
+               "smoothSolver": "smoothSolver",
+               "PBiCG": "PBiCG"
+            }
+          },{
+            "id": "solver.p.smoother",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["GaussSeidel"],
+            "domain"   : {
+               "GaussSeidel": "Gauss-Seidel",
+               "symmetric Gauss-Seidel": "symGaussSeidel",
+               "diagonal incomplete-Cholesky (symmetric), incomplete-LU (asymmetric)": "DIC/DILU",
+               "diagonal incomplete-Cholesky/LU with Gauss-Seidel (symmetric/asymmetric)": "DICGaussSeidel"
+            }
+          },{
+            "id": "solver.p.tolerance",
+            "type": "double",
+            "size": 1,
+            "default": [1e-7]
+          },{
+            "id": "solver.p.relTol",
+            "type": "double",
+            "size": 1,
+            "default": [0.01]
+          }
+        ]
+      },
+      "solver-U": {
+        "parameters": [
+          {
+            "id": "solver.U.solver",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["smoothSolver"],
+            "domain"   : {
+               "GAMG": "GAMG",
+               "smoothSolver": "smoothSolver",
+               "PBiCG": "PBiCG"
+            }
+          },{
+            "id": "solver.U.smoother",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["GaussSeidel"],
+            "domain"   : {
+               "GaussSeidel": "Gauss-Seidel",
+               "symGaussSeidel": "symmetric Gauss-Seidel",
+               "DIC/DILU": "diagonal incomplete-Cholesky (symmetric), incomplete-LU (asymmetric)",
+               "DICGaussSeidel": "diagonal incomplete-Cholesky/LU with Gauss-Seidel (symmetric/asymmetric)"
+            }
+          },{
+            "id": "solver.U.tolerance",
+            "type": "double",
+            "size": 1,
+            "default": [1e-8]
+          },{
+            "id": "solver.U.relTol",
+            "type": "double",
+            "size": 1,
+            "default": [0.1]
+          },{
+            "id": "solver.U.nSweeps",
+            "type": "integer",
+            "size": 1,
+            "default": [1]
+          }
+        ]
+      },
+      "solver-k": {
+        "parameters": [
+          {
+            "id": "solver.k.solver",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["smoothSolver"],
+            "domain"   : {
+               "GAMG": "GAMG",
+               "smoothSolver": "smoothSolver",
+               "PBiCG": "PBiCG"
+            }
+          },{
+            "id": "solver.k.smoother",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["GaussSeidel"],
+            "domain"   : {
+               "GaussSeidel": "Gauss-Seidel",
+               "symGaussSeidel": "symmetric Gauss-Seidel",
+               "DIC/DILU": "diagonal incomplete-Cholesky (symmetric), incomplete-LU (asymmetric)",
+               "DICGaussSeidel": "diagonal incomplete-Cholesky/LU with Gauss-Seidel (symmetric/asymmetric)"
+            }
+          },{
+            "id": "solver.k.tolerance",
+            "type": "double",
+            "size": 1,
+            "default": [1e-8]
+          },{
+            "id": "solver.k.relTol",
+            "type": "double",
+            "size": 1,
+            "default": [0.1]
+          },{
+            "id": "solver.k.nSweeps",
+            "type": "integer",
+            "size": 1,
+            "default": [1]
+          }
+        ]
+      },
+      "solver-omega": {
+        "parameters": [
+          {
+            "id": "solver.omega.solver",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["smoothSolver"],
+            "domain"   : {
+               "GAMG": "GAMG",
+               "smoothSolver": "smoothSolver",
+               "PBiCG": "PBiCG"
+            }
+          },{
+            "id": "solver.omega.smoother",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["GaussSeidel"],
+            "domain"   : {
+               "GaussSeidel": "Gauss-Seidel",
+               "symGaussSeidel": "symmetric Gauss-Seidel",
+               "DIC/DILU": "diagonal incomplete-Cholesky (symmetric), incomplete-LU (asymmetric)",
+               "DICGaussSeidel": "diagonal incomplete-Cholesky/LU with Gauss-Seidel (symmetric/asymmetric)"
+            }
+          },{
+            "id": "solver.omega.tolerance",
+            "type": "double",
+            "size": 1,
+            "default": [1e-8]
+          },{
+            "id": "solver.omega.relTol",
+            "type": "double",
+            "size": 1,
+            "default": [0.1]
+          },{
+            "id": "solver.omega.nSweeps",
+            "type": "integer",
+            "size": 1,
+            "default": [1]
+          }
+        ]
+      },
+      "correctors": {
+        "parameters": [
+          {
+            "id": "correctors.simple.nNonOrthogonalCorrectors",
+            "type": "double",
+            "size": 1,
+            "default": [0]
+          },{
+            "id": "correctors.simple.consistent",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["yes"],
+            "domain"   : {
+               "yes": "yes",
+               "no": "no"
+            }
+          },{
+            "id": "correctors.potentialFlow.nNonOrthogonalCorrectors",
+            "type": "double",
+            "size": 1,
+            "default": [10]
+          }
+        ]
+      },
+      "relaxationFactors": {
+        "parameters": [
+          {
+            "id": "relaxationFactors.equations.U",
+            "type": "double",
+            "size": 1,
+            "default": [0.9]
+          },{
+            "id": "relaxationFactors.equations.k",
+            "type": "double",
+            "size": 1,
+            "default": [0.7]
+          },{
+            "id": "relaxationFactors.equations.omega",
+            "type": "double",
+            "size": 1,
+            "default": [0.7]
+          }
+        ]
+      },
+      "meshQuality": {
+        "parameters": [
+          {
+            "id": "meshQuality.minFaceWeight",
+            "type": "double",
+            "size": 1,
+            "default": [0.02]
+          }
+        ]
+      },
+      "meshSize": {
+        "parameters": [
+          {
+            "id": "meshSize.dimensions",
+            "type": "integer",
+            "size"   : 3,
+            "layout": "3",
+            "default": [10, 10, 10]
+          },{
+            "id": "meshSize.simpleGrading",
+            "type": "integer",
+            "size"   : 3,
+            "layout": "3",
+            "default": [1, 2, 3]
+          }
+        ]
+      },
+      "meshRefinement": {
+        "parameters": [
+          {
+            "id": "meshRefinement.refinementBox.type",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["searchableBox"],
+            "domain"   : {
+               "searchableBox": "searchableBox",
+               "searchableSphere": "searchableSphere"
+            }
+          },
+          ["searchableBox", "searchableSphere"]
+        ],
+        "children": {
+          "searchableBox": "meshRefinement['meshRefinement.refinementBox.type'][0] === 'searchableBox'",
+          "searchableSphere": "meshRefinement['meshRefinement.refinementBox.type'][0] === 'searchableSphere'"
+        }
+      },
+      "searchableBox": {
+        "parameters": [
+          {
+            "id": "meshRefinement.refinementBox.min",
+            "type": "double",
+            "size": 3,
+            "layout": "3",
+            "default": [-1.0, -0.7, 0.0]
+          },{
+            "id": "meshRefinement.refinementBox.max",
+            "type": "double",
+            "size": 3,
+            "layout": "3",
+            "default": [8.0, 0.7, 2.5]
+          }
+        ]
+      },
+      "searchableSphere": {
+        "parameters": [
+          {
+            "id": "meshRefinement.refinementSphere.center",
+            "type": "double",
+            "size": 3,
+            "layout": "3",
+            "default": [0, 0, 0]
+          },{
+            "id": "meshRefinement.refinementSphere.radius",
+            "type": "double",
+            "size": 1,
+            "default": [1.05]
+          }
+        ]
+      },
+      "runtime" : {
+        "parameters": [
+          {
+            "id": "runtime.step",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["castellatedMesh"],
+            "domain"   : {
+               "castellatedMesh": "castellatedMesh",
+               "snap": "snap",
+               "addLayers": "addLayers"
+            }
+          },
+          ["castellatedMeshControls", "snapControls", "addLayersControls"]
+        ],
+        "children": {
+          "castellatedMeshControls": "runtime['runtime.step'][0] === 'castellatedMesh'",
+          "snapControls": "runtime['runtime.step'][0] === 'snap'",
+          "addLayersControls": "runtime['runtime.step'][0] === 'addLayers'"
+        }
+      },
+      "castellatedMeshControls": {
+        "parameters": [
+          {
+            "id": "castellatedMeshControls.maxLocalCells",
+            "type": "integer",
+            "size": 1,
+            "default": [100000]
+          },{
+            "id": "castellatedMeshControls.maxGlobalCells",
+            "type": "integer",
+            "size": 1,
+            "default": [2000000]
+          },{
+            "id": "castellatedMeshControls.minRefinementCells",
+            "type": "integer",
+            "size": 1,
+            "default": [10]
+          },{
+            "id": "castellatedMeshControls.maxLoadUnbalance",
+            "type": "double",
+            "size": 1,
+            "default": [0.10]
+          },{
+            "id": "castellatedMeshControls.nCellsBetweenLevels",
+            "type": "integer",
+            "size": 1,
+            "default": [3]
+          },{
+            "id": "castellatedMeshControls.resolveFeatureAngle",
+            "type": "integer",
+            "size": 1,
+            "default": [30]
+          },{
+            "id": "castellatedMeshControls.locationInMesh",
+            "type": "double",
+            "size": 3,
+            "layout": "3",
+            "default": [3.0001, 3.0001, 0.43]
+          },{
+            "id": "castellatedMeshControls.allowFreeStandingZoneFaces",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["true"],
+            "domain"   : {
+               "true": "true",
+               "false": "false"
+            }
+          }
+        ]
+      },
+      "snapControls": {
+        "parameters": [
+          {
+            "id": "snapControls.nSmoothPatch",
+            "type": "double",
+            "size": 1,
+            "default": [3]
+          },{
+            "id": "snapControls.tolerance",
+            "type": "double",
+            "size": 1,
+            "default": [2.0]
+          },{
+            "id": "snapControls.nSolveIter",
+            "type": "integer",
+            "size": 1,
+            "default": [30]
+          },{
+            "id": "snapControls.nRelaxIter",
+            "type": "integer",
+            "size": 1,
+            "default": [5]
+          },{
+            "id": "snapControls.nFeatureSnapIter",
+            "type": "integer",
+            "size": 1,
+            "default": [10]
+          },{
+            "id": "snapControls.implicitFeatureSnap",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["false"],
+            "domain"   : {
+               "true": "true",
+               "false": "false"
+            }
+          },{
+            "id": "snapControls.explicitFeatureSnap",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["true"],
+            "domain"   : {
+               "true": "true",
+               "false": "false"
+            }
+          },{
+            "id": "snapControls.multiRegionFeatureSnap",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["false"],
+            "domain"   : {
+               "true": "true",
+               "false": "false"
+            }
+          }
+        ]
+      },
+      "addLayersControls": {
+        "parameters": [
+          {
+            "id": "addLayersControls.relativeSizes",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["true"],
+            "domain"   : {
+               "true": "true",
+               "false": "false"
+            }
+          },{
+            "id": "addLayersControls.expansionRatio",
+            "type": "double",
+            "size": 1,
+            "default": [1.0]
+          },{
+            "id": "addLayersControls.finalLayerThickness",
+            "type": "double",
+            "size": 1,
+            "default": [0.3]
+          },{
+            "id": "addLayersControls.minThickness",
+            "type": "double",
+            "size": 1,
+            "default": [0.1]
+          },{
+            "id": "addLayersControls.nGrow",
+            "type": "double",
+            "size": 1,
+            "default": [0]
+          },{
+            "id": "addLayersControls.featureAngle",
+            "type": "double",
+            "size": 1,
+            "default": [60]
+          },{
+            "id": "addLayersControls.slipFeatureAngle",
+            "type": "double",
+            "size": 1,
+            "default": [30]
+          },{
+            "id": "addLayersControls.nRelaxIter",
+            "type": "integer",
+            "size": 1,
+            "default": [3]
+          },{
+            "id": "addLayersControls.nSmoothSurfaceNormals",
+            "type": "double",
+            "size": 1,
+            "default": [1]
+          },{
+            "id": "addLayersControls.nSmoothNormals",
+            "type": "double",
+            "size": 1,
+            "default": [3]
+          },{
+            "id": "addLayersControls.nSmoothThickness",
+            "type": "double",
+            "size": 1,
+            "default": [10]
+          },{
+            "id": "addLayersControls.maxFaceThicknessRatio",
+            "type": "double",
+            "size": 1,
+            "default": [0.5]
+          },{
+            "id": "addLayersControls.maxThicknessToMedialRatio",
+            "type": "double",
+            "size": 1,
+            "default": [0.3]
+          },{
+            "id": "addLayersControls.minMedianAxisAngle",
+            "type": "double",
+            "size": 1,
+            "default": [90]
+          },{
+            "id": "addLayersControls.nBufferCellsNoExtrude",
+            "type": "integer",
+            "size": 1,
+            "default": [0]
+          },{
+            "id": "addLayersControls.nLayerIter",
+            "type": "integer",
+            "size": 1,
+            "default": [50]
+          }
+        ]
+      }
+    }
+}

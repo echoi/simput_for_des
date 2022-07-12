@@ -1,0 +1,43 @@
+<div :class="$style.line">
+  <v-slider
+    v-if="zRange.length"
+    :min="0"
+    :max="100"
+    :step="1"
+    :value="zSlider"
+    :class="$style.slider"
+    :height="20"
+    hide-details
+    :dark="dark"
+    always-dirty
+    @input="setSliderZScale"
+  />
+  <v-tooltip top>
+    <v-btn
+      v-if="!fixedParallelRendering"
+      slot="activator"
+      icon
+      small
+      :dark="dark"
+      :class="$style.resetCamera"
+      @click="toggleParallelRendering"
+    >
+      <v-icon v-if="parallelRendering">mdi-numeric-2-box-multiple-outline</v-icon>
+      <v-icon v-else>mdi-numeric-3-box-multiple-outline</v-icon>
+    </v-btn>
+    <span>2d/3d</span>
+  </v-tooltip>
+  <v-tooltip top>
+    <v-btn
+      slot="activator"
+      icon
+      small
+      :dark="dark"
+      :class="$style.resetCamera"
+      @click="resetCamera"
+    >
+      <v-icon>mdi-image-filter-center-focus</v-icon>
+    </v-btn>
+    <span>Reset camera</span>
+  </v-tooltip>
+</div>

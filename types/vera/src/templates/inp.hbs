@@ -1,0 +1,216 @@
+[CASEID]
+  title "{{core.title}}"
+
+{{#each states}}
+[STATE]
+{{#if title}}
+  title "{{title}}"
+{{/if}}
+{{#each cards}}
+  {{name}} {{#each params}} {{this}}{{/each}}
+{{/each}}
+{{#each cardsWithZero includeZero=true}}
+  {{name}} {{#each params}} {{this}}{{/each}}
+{{/each}}
+{{#if rodbank}}
+  rodbank {{#each rodbank}} {{this}}{{/each}}
+{{/if}}
+{{/each}}
+
+[CORE]
+  size   {{core.size}}     ! number of assemblies across core
+  apitch {{core.apitch}}   ! assembly spacing, cm
+{{#if core.rated}}
+  rated {{#each core.rated}} {{this}}{{/each}}  ! MW, Mlbs/hr
+{{/if}}
+  height {{core.height}}   ! cm
+{{#each core.cards}}
+  {{name}} {{#each params}} {{this}}{{/each}}
+{{/each}}
+{{#each core.materials}}
+{{#if name}}
+  mat {{name}} {{density}} {{#each fractions}} {{this}}{{/each}}{{#if thexp}}
+      / thexp={{thexp}}{{/if}}
+{{/if}}
+{{/each}}
+
+{{#if core.core_shape}}
+  core_shape
+    {{core.core_shape}}
+
+{{/if}}
+{{#if core.assm_map}}
+  assm_map
+    {{core.assm_map}}
+
+{{/if}}
+{{#if core.insert_map}}
+  insert_map
+    {{core.insert_map}}
+
+{{/if}}
+{{#if core.crd_map}}
+  crd_map
+    {{core.crd_map}}
+
+{{/if}}
+{{#if core.crd_bank}}
+  crd_bank
+    {{core.crd_bank}}
+
+{{/if}}
+{{#if core.det_map}}
+  det_map
+    {{core.det_map}}
+
+{{/if}}
+
+{{#if core.baffle}}
+  baffle {{#each core.baffle}} {{this}}{{/each}} ! mat, gap (cm), thickness (cm)
+
+{{/if}}
+{{#if core.vessel}}
+  vessel {{#each core.vessel}} {{this}}{{/each}}
+
+{{/if}}
+{{#if core.pad}}
+  pad {{#each core.pad}} {{this}}{{/each}}  ! neutron pad ID, OD (cm), arc length (degrees), and angular positions (degrees)
+
+{{/if}}
+{{#if core.lower_plate}}
+  lower_plate {{#each core.lower_plate}} {{this}}{{/each}} ! mat, thickness (cm), vol frac
+{{/if}}
+{{#if core.upper_plate}}
+  upper_plate {{#each core.upper_plate}} {{this}}{{/each}} ! mat, thickness (cm), vol frac
+{{/if}}
+
+[ASSEMBLY]
+{{#if assembly.title}}
+  title  "{{assembly.title}}"
+{{/if}}
+  npin   {{assembly.npin}}
+  ppitch {{assembly.ppitch}}
+
+{{#each assembly.fuels}}
+{{#if name}}
+  fuel {{name}} {{density}} {{thden}} / {{u235_enrichment}}{{#each enrichments}} {{name}}={{value}}{{/each}}{{#if gad_material}}
+      / {{gad_material}}={{gad_fraction}}{{/if}}
+{{/if}}
+{{/each}}
+
+{{#each assembly.cells}}
+  cell {{name}}  {{#each radii}}{{this}} {{/each}}/{{#each mats}} {{this}}{{/each}}
+{{/each}}
+
+{{#each assembly.lattices}}
+  lattice {{name}}
+    {{cellMap}}
+
+{{/each}}
+
+{{#each assembly.axials}}
+  axial {{name}} {{#each elevationMats}} {{this}}{{/each}}
+{{/each}}
+
+{{#each assembly.grids}}
+  grid {{name}} {{material}} {{height}} {{mass}} / loss={{loss}}{{#if blockage}} blockage={{blockage}}{{/if}} ! grid height (cm), mass (g), loss coef
+{{/each}}
+{{#if assembly.grid_axial}}
+
+  grid_axial
+{{#each assembly.grid_axial}}
+      {{name}} {{height}}
+{{/each}}
+{{/if}}
+
+{{#if assembly.lower_nozzle}}
+  lower_nozzle {{#each assembly.lower_nozzle}} {{this}}{{/each}} ! mat, height, mass (g)
+{{/if}}
+{{#if assembly.upper_nozzle}}
+  upper_nozzle {{#each assembly.upper_nozzle}} {{this}}{{/each}} ! mat, height, mass (g)
+{{/if}}
+
+{{#if insert}}
+[INSERT]
+{{#if insert.title}}
+  title  "{{insert.title}}"
+{{/if}}
+  npin   {{insert.npin}}
+
+{{#each insert.cells}}
+  cell {{name}}  {{#each radii}}{{this}} {{/each}}/{{#each mats}} {{this}}{{/each}}
+{{/each}}
+
+ {{#each insert.lattices}}
+  rodmap {{name}}
+    {{cellMap}}
+
+{{/each}}
+
+{{#each insert.axials}}
+  axial {{name}} {{#each elevationMats}} {{this}}{{/each}}
+{{/each}}
+
+{{/if}}
+{{#if control}}
+[CONTROL]
+{{#if control.title}}
+  title  "{{control.title}}"
+{{/if}}
+  npin   {{control.npin}}
+{{#if control.stroke}}
+  stroke {{#each control.stroke}} {{this}}{{/each}}  ! full stroke height, num steps
+{{/if}}
+
+{{#each control.cells}}
+  cell {{name}}  {{#each radii}}{{this}} {{/each}}/{{#each mats}} {{this}}{{/each}}
+{{/each}}
+
+{{#each control.lattices}}
+  rodmap {{name}}
+    {{cellMap}}
+
+{{/each}}
+
+{{#each control.axials}}
+  axial {{name}} {{#each elevationMats}} {{this}}{{/each}}
+{{/each}}
+
+{{/if}}
+{{#if detector}}
+[DETECTOR]
+{{#if detector.title}}
+  title  "{{detector.title}}"
+{{/if}}
+  npin   {{detector.npin}}
+
+{{#each detector.cells}}
+  cell {{name}}  {{#each radii}}{{this}} {{/each}}/{{#each mats}} {{this}}{{/each}}
+{{/each}}
+
+ {{#each detector.lattices}}
+  rodmap {{name}}
+    {{cellMap}}
+
+{{/each}}
+
+{{#each detector.axials}}
+  axial {{name}} {{#each elevationMats}} {{this}}{{/each}}
+{{/each}}
+{{/if}}
+
+{{#if edits}}
+[EDITS]
+{{#each edits.cards includeZero=true}}
+  {{name}} {{#each params}} {{this}}{{/each}}
+{{/each}}
+{{/if}}
+
+{{#each simulations}}
+[{{name}}]
+{{#each cards includeZero=true}}
+  {{name}} {{#each params}} {{this}}{{/each}}
+{{/each}}
+
+{{/each}}
+

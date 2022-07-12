@@ -1,0 +1,32 @@
+<div
+  :class="$style.container"
+  ref="container"
+>
+  <v-menu
+    offset-y
+    :close-on-content-click="false"
+  >
+    <v-btn
+      slot="activator"
+      :color="dark ? 'white' : 'gray'"
+      @click="redraw"
+    >
+      {{ title }}
+    </v-btn>
+    <v-list v-if="viewer">
+      <v-list-tile
+        v-for="item in getItems()"
+        v-if="!item.type || item.type === type"
+        :key="item.id"
+        @click="setVisibility(item)"
+      >
+        <v-checkbox
+          :label="item.label"
+          :input-value="true"
+          :value="viewer.getObjectVisibility(item.id)"
+          readonly
+        />
+      </v-list-tile>
+    </v-list>
+  </v-menu>
+</div>
