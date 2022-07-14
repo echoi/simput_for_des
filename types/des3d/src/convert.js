@@ -1,11 +1,11 @@
 
-const simTemplate = require('./sim.hbs');
-const meshTemplate = require('./mesh.hbs');
-const markersTemplate = require('./markers.hbs');
-const controlTemplate = require('./control.hbs');
-const bcTemplate = require('./bc.hbs');
-const icTemplate = require('./ic.hbs');
-const matTemplate = require('./mat.hbs');
+const simTemplate = require('./templates/sim.hbs');
+const meshTemplate = require('./templates/mesh.hbs');
+const markersTemplate = require('./templates/markers.hbs');
+const controlTemplate = require('./templates/control.hbs');
+const bcTemplate = require('./templates/bc.hbs');
+const icTemplate = require('./templates/ic.hbs');
+const matTemplate = require('./templates/mat.hbs');
 
 module.exports = function convert(dataModel) {
     const results = {};
@@ -13,9 +13,9 @@ module.exports = function convert(dataModel) {
 
     const sim_attr = {};
     if (dataModel.data.sim_v) {
-      const sim_params = dataModel.data.sim_v[0].sim_attr;
-      Object.keys(sim_params).forEach((fieldName) => {
-        const value = sim_params[fieldName].value;
+      const params = dataModel.data.sim_v[0].sim_attr;
+      Object.keys(params).forEach((fieldName) => {
+        const value = params[fieldName].value;
         if (value.length === 1) {
          sim_attr[fieldName] = value[0];
         } else {
@@ -31,9 +31,9 @@ module.exports = function convert(dataModel) {
     //do it later or don't merge at all
     const mesh_attr = {};
     if (dataModel.data.mesh_v) {
-      const mesh_params = dataModel.data.mesh_v[0].mesh_attr;
-      Object.keys(mesh_params).forEach((fieldName) => {
-        const value = mesh_params[fieldName].value;
+      const params = dataModel.data.mesh_v[0].mesh_attr;
+      Object.keys(params).forEach((fieldName) => {
+        const value = params[fieldName].value;
         if (value.length === 1) {
           mesh_attr[fieldName] = value[0];
         } else {
@@ -46,9 +46,9 @@ module.exports = function convert(dataModel) {
 
     const mesh_conditional_attr = {};
     if (dataModel.data.mesh_conditional_v) {
-      const mesh_params = dataModel.data.mesh_conditional_v[0].mesh_conditional_attr;
-      Object.keys(mesh_params).forEach((fieldName) => {
-        const value = mesh_params[fieldName].value;
+      const params = dataModel.data.mesh_conditional_v[0].mesh_conditional_attr;
+      Object.keys(params).forEach((fieldName) => {
+        const value = params[fieldName].value;
         if (value.length === 1) {
           mesh_conditional_attr[fieldName] = value[0];
         } else {
@@ -79,9 +79,9 @@ module.exports = function convert(dataModel) {
 
     const control_attr = {};
     if (dataModel.data.control_v) {
-      const control_params = dataModel.data.control_v[0].control_attr;
-      Object.keys(control_params).forEach((fieldName) => {
-        const value = control_params[fieldName].value;
+      const params = dataModel.data.control_v[0].control_attr;
+      Object.keys(params).forEach((fieldName) => {
+        const value = params[fieldName].value;
         if (value.length === 1) {
           control_attr[fieldName] = value[0];
         } else {
@@ -97,9 +97,9 @@ module.exports = function convert(dataModel) {
 
     const bc_attr = {};
     if (dataModel.data.bc_v) {
-      const bc_params = dataModel.data.bc_v[0].bc_attr;
-      Object.keys(bc_params).forEach((fieldName) => {
-        const value = bc_params[fieldName].value;
+      const params = dataModel.data.bc_v[0].bc_attr;
+      Object.keys(params).forEach((fieldName) => {
+        const value = params[fieldName].value;
         if (value.length === 1) {
           bc_attr[fieldName] = value[0];
         } else {
@@ -116,9 +116,9 @@ module.exports = function convert(dataModel) {
 
     const ic_attr = {};
     if (dataModel.data.ic_v) {
-      const ic_params = dataModel.data.ic_v[0].ic_attr;
-      Object.keys(ic_params).forEach((fieldName) => {
-        const value = ic_params[fieldName].value;
+      const params = dataModel.data.ic_v[0].ic_attr;
+      Object.keys(params).forEach((fieldName) => {
+        const value = params[fieldName].value;
         if (value.length === 1) {
           ic_attr[fieldName] = value[0];
         } else {
@@ -134,9 +134,9 @@ module.exports = function convert(dataModel) {
 
     const mat_attr = {};
     if (dataModel.data.mat_v) {
-      const mat_params = dataModel.data.mat_v[0].mat_attr;
-      Object.keys(mat_params).forEach((fieldName) => {
-        const value = mat_params[fieldName].value;
+      const params = dataModel.data.mat_v[0].mat_attr;
+      Object.keys(params).forEach((fieldName) => {
+        const value = params[fieldName].value;
         if (value.length === 1) {
           mat_attr[fieldName] = value[0];
         } else {

@@ -2,14 +2,13 @@ module.exports = {
   order: ['markers_v'],
   views: {
     markers_v: {
-      size: -1,
       attributes: ['marker_attr'],
     },
   },
   definitions: {
     
     //markers
-    markers: {
+    marker_attr: {
       parameters: [
         {
           id: 'init_marker_option',

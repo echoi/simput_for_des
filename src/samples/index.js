@@ -13,6 +13,7 @@ export default [
     },
   },
   {
+<<<<<<< HEAD
     label: 'DES3D',
     image: Images.des3d,
     description: 'Long-term tectonic simulation code, Dynamic Earth Solver in 3D',
@@ -33,6 +34,8 @@ export default [
     },
   },
   {
+=======
+>>>>>>> parent of e2ee798 (added des3D as a new type)
     label: 'Address book',
     icon: 'mdi-contact-mail',
     description: 'Address book which generate vcs files',

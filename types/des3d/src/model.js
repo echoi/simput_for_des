@@ -1,36 +1,30 @@
+//fix mattype layer depths
+
 module.exports = {
   order: ['sim_v', 'mesh_v', 'mesh_conditional_v', 'markers_v', 'control_v', 'bc_v', 'ic_v', 'mat_v'],
   views: {
     sim_v: {
-      //size: -1,
       attributes: ['sim_attr'],
     },
     mesh_v: {
-      //size: -1,
       attributes: ['mesh_attr'], 
     },
     mesh_conditional_v: {
-      //size: -1,
       attributes: ['mesh_conditional_attr'], 
     },
     markers_v: {
-      //size: -1,
       attributes: ['markers_attr'],
     },
     control_v: {
-      //size: -1,
       attributes: ['control_attr'],
     },
     bc_v: {
-      //size: -1,
       attributes: ['bc_attr'],
     },
     ic_v: {
-      //size: -1,
       attributes: ['ic_attr'],
     },
     mat_v: {
-      //size: -1,
       attributes: ['mat_attr'],
     },
   },
@@ -117,7 +111,6 @@ module.exports = {
         }
       ]
     },
-
     mesh_attr: {
       parameters: [
         {
@@ -254,7 +247,6 @@ module.exports = {
         }
       ]
     },
-
     mesh_conditional_attr: {
       parameters: [
         {
@@ -319,10 +311,6 @@ module.exports = {
         },
       ],
     },
-
-    
-    
-    //markers
     markers_attr: {
       parameters: [
         {
@@ -363,7 +351,6 @@ module.exports = {
         }
       ]
     },
-        //control
     control_attr: {
       parameters: [
         {
@@ -621,20 +608,18 @@ module.exports = {
     },
     ic_attr: {
       parameters: [
-                //ic
         {
           id: 'mattype_option',
           type: 'int',
           size: 1,
           default: '0',
         },
-        // {
-        //   id: 'mattype_layer_depths',
-        //   type: 'int',
-        //   size: 1,
-        //   default: '1600',
-        // },
-        // brackets around thing but only one float value
+        {
+          id: 'mattype_layer_depths',
+          type: 'int',
+          size: 1,
+          default: '1600',
+        },
         {
           id: 'weakzone_option',
           type: 'int',
@@ -737,7 +722,6 @@ module.exports = {
           size: 1,
           default: '60e6',
         },
-        //for teperature option 90 & others
       ]
     },
     mat_attr: {
@@ -903,17 +887,4 @@ module.exports = {
       ]
     },
   },
-
-// #############################################################################
-// # This is an input file for 2D/3D DynEarthSol. All available input parameters
-// # are listed here. Parameters with default values are commented out with
-// # the default values. Parameters that are not commented out are required.
-// #
-// # Parameters starting with 'is_' or 'has_' are boolean. Acceptable values
-// # include: yes, no, on, off, 1, 0.
-// #
-// # Parameters of multiple values must be quoted by [].
-// #
-// # Use command lne argument '--help' to see more description.
-// #############################################################################
 }; 
