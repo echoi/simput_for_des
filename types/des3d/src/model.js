@@ -1,7 +1,7 @@
 //fix mattype layer depths
 
 module.exports = {
-  order: ['sim_v', 'mesh_v', 'mesh_conditional_v', 'markers_v', 'control_v', 'bc_v', 'ic_v', 'mat_v'],
+  order: ['sim_v', 'mesh_v', 'mesh_conditional_v', 'markers_v', 'control_v', 'bc_v', 'ic_v', 'ic_conditional_v', 'mat_v'],
   views: {
     sim_v: {
       attributes: ['sim_attr'],
@@ -23,6 +23,9 @@ module.exports = {
     },
     ic_v: {
       attributes: ['ic_attr'],
+    },
+    ic_conditional_v: {
+      attributes: ['ic_conditional_attr'],
     },
     mat_v: {
       attributes: ['mat_attr'],
@@ -71,7 +74,7 @@ module.exports = {
           id: 'is_restarting',
           type: 'int',
           size: 1,
-          default: '1',
+          default: '0',
         },
         {
           id: 'restarting_from_modelname',
@@ -99,9 +102,9 @@ module.exports = {
         },
         {
           id: 'has_output_during_remeshing',
-          type: 'string',
+          type: 'int',
           size: 1,
-          default: 'no',
+          default: '0',
         },
         {
           id: 'is_outputting_averaged_fields',
@@ -163,15 +166,15 @@ module.exports = {
         },
         {
           id: 'min_angle',
-          type: 'int',
+          type: 'string',
           size: 1,
-          default: '32',
+          default: '32.',
         },
         {
           id: 'min_tet_angle',
-          type: 'int',
+          type: 'string',
           size: 1,
-          default: '22',
+          default: '22.',
         },
         {
           id: 'max_ratio',
@@ -199,21 +202,15 @@ module.exports = {
         },
         {
           id: 'remeshing_option',
-          type: 'string',
+          type: 'int',
           size: 1,
           default: '0',
         },
         {
           id: 'is_discarding_internal_segments',
-          type: 'string',
+          type: 'int',
           size: 1,
-          default: '30',
-        },
-        {
-          id: 'is_discarding_internal_segments',
-          type: 'string',
-          size: 1,
-          default: 'yes',
+          default: '1',
         },
         {
           id: 'mmg_debug',
@@ -367,9 +364,9 @@ module.exports = {
         },
         {
           id: 'is_quasi_static',
-          type: 'string',
+          type: 'int',
           size: 1,
-          default: 'yes',
+          default: '1',
         },
         {
           id: 'dt_fraction',
@@ -429,7 +426,7 @@ module.exports = {
           id: 'has_hydration_processes',
           type: 'int',
           size: 1,
-          default: 'no',
+          default: '0',
         },
         {
           id: 'hydration_migration_speed',
@@ -572,7 +569,7 @@ module.exports = {
           id: 'wrinkler_delta_rho',
           type: 'int',
           size: 1,
-          default: 'o',
+          default: '0',
         },
         {
           id: 'has_elastic_foundation',
@@ -616,9 +613,9 @@ module.exports = {
         },
         {
           id: 'mattype_layer_depths',
-          type: 'int',
+          type: 'string',
           size: 1,
-          default: '1600',
+          default: '[0.5]',
         },
         {
           id: 'weakzone_option',
@@ -711,18 +708,69 @@ module.exports = {
           default: '1e3',
         },
         {
-          id: 'temperature_option',
-          type: 'int',
-          size: 1,
-          default: '0',
-        },
-        {
           id: 'oceanic_plate_age_in_yr',
           type: 'string',
           size: 1,
           default: '60e6',
         },
+        {
+          id: 'isostasy_adjustment_time_in_yr',
+          type: 'int',
+          size: 1,
+          default: '0',
+        },
       ]
+    },
+    ic_conditional_attr: {
+      parameters: [
+        {
+          id: 'temperature_option',
+          type: 'int',
+          ui: 'enum',
+          default: [0],
+          domain: {
+            "0": 0,
+            "1": 1,
+            "90": 90,
+          },
+        },
+        ["Temp_fname", "Nodes_fname", "Connectivity_fname"]
+      ],
+      children: {
+        Temp_fname: "ic_conditional_attr.temperature_option[0] ===  90",
+        Nodes_fname: "ic_conditional_attr.temperature_option[0] === 90",
+        Connectivity_fname: "ic_conditional_attr.temperature_option[0] === 90"
+      },
+    },
+    Temp_fname: {
+      parameters: [
+        {
+            id: 'Temp_filename',
+            type: 'string',
+            size: 1,
+            default: 'Thermal.dat',
+        },
+      ],
+    },
+    Nodes_fname: {
+      parameters: [
+        {
+            id: 'Nodes_filename',
+            type: 'string',
+            size: 1,
+            default: 'Coord.dat',
+        },
+      ],
+    },
+    Connectivity_fname: {
+      parameters: [
+        {
+            id: 'Connectivity_filename',
+            type: 'string',
+            size: 1,
+            default: 'Connectivity.dat',
+        },
+      ],
     },
     mat_attr: {
       parameters: [
@@ -771,7 +819,7 @@ module.exports = {
           default: '3e-5',
         },
         {
-          id: 'bulk_modus',
+          id: 'bulk_modulus',
           type: 'string',
           size: 1,
           default: '128.2e9',

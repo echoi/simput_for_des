@@ -7,6 +7,7 @@
     "control_v": "control",
     "bc_v": "bc",
     "ic_v": "ic",
+    "ic_conditional_v": "conditional parameters from ic",
     "mat_v": "mat"
 
   },
@@ -52,6 +53,7 @@
         "quality_check_step_interval": "quality_check_step_interval: How often model checks quality", 
         "min_quality": "min_quality", 
         "max_boundary_distortion": "max_boundary_distortion", 
+        "remeshing_option": "remeshing_option",
         "is_discarding_internal_segments": "is_discarding_internal_segments", 
         "mmg_debug": "mmg_debug", 
         "mmg_verbose": "mmg_verbose", 
@@ -132,7 +134,6 @@
     },
 
 
-
     "bc_attr": {
       "title": "bc",
       "parameters": {
@@ -173,7 +174,7 @@
       "title": "ic",
       "parameters":{
         "mattype_option": "mattype_option",
-        
+        "mattype_layer_depths": "mattype_layer_depths",
         "weakzone_option": "weakzone_option",
         "weakzone_plstrain": "weakzone_plstrain",
         "weakzone_azimuth": "weakzone_azimuth",
@@ -189,10 +190,38 @@
         "weakzone_xsemi_axis": "weakzone_xsemi_axis",
         "weakzone_ysemi_axis": "weakzone_ysemi_axis",
         "weakzone_zsemi_axis": "weakzone_zsemi_axis",
-        "temperature_option": "temperature_option",
-        "oceanic_plate_age_in_yr": "oceanic_plate_age_in_yr"
+        "oceanic_plate_age_in_yr": "oceanic_plate_age_in_yr",
+        "isostasy_adjustment_time_in_yr": "isostasy_adjustment_time_in_yr"
       }
     },
+
+
+
+    "ic_conditional_attr": {
+      "title": "conditional parameters from ic",
+      "parameters":{
+        "temperature_option": "temperature_option"
+      }
+    },
+    "Temp_fname": {
+      "title": "Temp_filename",
+      "parameters": {
+        "Temp_filename": "Temp_filename"
+      }
+    },
+    "Nodes_fname": {
+      "title": "Nodes_filename",
+      "parameters": {
+        "Nodes_filename": "Nodes_filename"
+      }
+    },
+    "Connectivity_fname": {
+      "title": "Connectivity_filename",
+      "parameters": {
+        "Connectivity_filename": "Connectivity_filename"
+      }
+    },
+   
 
 
 
@@ -206,7 +235,7 @@
         "rho0": "rho0",
         "alpha": "alpha",
         "bulk_modus": "bulk_modus",
-        "shear_modus": "shear_modus",
+        "shear_modulus": "shear_modulus",
         "visc_exponent": "visc_exponent",
         "visc_coefficient": "visc_coefficient",
         "visc_activation_energy": "visc_activation_energy",
