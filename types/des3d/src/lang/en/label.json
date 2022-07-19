@@ -63,11 +63,12 @@
       }
     },
     
+
     "mesh_conditional_attr": {
-      "title": "conditionals needed in mesh",
+      "title": "meshing_option",
       "paramters": {
         "meshing_option": "meshing_option"
-      } 
+      }
     },
     "p_filename": {
       "title": "poly_filename",
@@ -121,14 +122,14 @@
         "is_quasi_static": "is_quasi_static",
         "dt_fraction": "dt_fraction",
         "fixed_dt": "fixed_dt",
-        "intertial_scaling": "intertial_scaling",
+        "inertial_scaling": "inertial_scaling",
         "damping_option": "damping_option",
         "damping_factor": "damping_factor",
         "ref_pressure_option": "ref_pressure_option",
         "surface_process_option": "surface_process_option",
         "surface_diffusivity": "surface_diffusivity",
         "has_thermal_diffusion": "has_thermal_diffusion",
-        "has_hydration_processes ": "has_hydration_processes",
+        "has_hydration_processes": "has_hydration_processes",
         "hydration_migration_speed": "hydration_migration_speed"
       }
     },
@@ -226,7 +227,7 @@
 
 
     "mat_attr": {
-      "title": "mat: the parameters, starting with /'rho0/' and ending with /'dilation_angle1/' should have either 1 value or as many values as the integer entered in 'num_materials'",
+      "title": "mat: bracketed parameters, starting with /'rho0/' and ending with /'dilation_angle1/' should have either 1 value or as many values as the integer entered in 'num_materials'. Multiple values must be seperated by commas.",
       "parameters": {
         "rheology_type": "rheology_type",
         "is_plane_strain": "is_plane_strain",
@@ -234,7 +235,7 @@
         "num_materials": "num_materials",
         "rho0": "rho0",
         "alpha": "alpha",
-        "bulk_modus": "bulk_modus",
+        "bulk_modulus": "bulk_modus",
         "shear_modulus": "shear_modulus",
         "visc_exponent": "visc_exponent",
         "visc_coefficient": "visc_coefficient",

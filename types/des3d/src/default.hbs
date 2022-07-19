@@ -47,33 +47,33 @@ resolution = {{resolution}}
 #largest_size = {{largest_size}}
 
 ### For 2d mesh quality
-#min_angle = 32.            {{min_angle}}
+#min_angle = {{min_angle}}
 ### For 3d mesh quality
-#min_tet_angle = 22.                {{min_tet_angle}}
-#max_ratio = 2.0                    {{max_ratio}}
+#min_tet_angle = {{min_tet_angle}}
+#max_ratio = {{max_ratio}}
 
 ### For meshing_option = 2
-#refined_zonex = [0.4, 0.6]             {{refined_zonex}}
-#refined_zoney = [0.4, 0.6]             {{refined_zoney}}
-#refined_zonez = [0.8, 1.0]             {{refined_zonez}}
+#refined_zonex = {{refined_zonex}}
+#refined_zoney = {{refined_zoney}}
+#refined_zonez = {{refined_zonez}}
 
 ### For meshing_option = 90         
-#poly_filename = mesh.poly              {{poly_filename}}
+#poly_filename = {{p_filename}}
 ### For meshing_option = 95                  
-#poly_filename = mesh.poly                  {{poly_filename}}
+#poly_filename = {{p_filename}}
 
-#quality_check_step_interval = 100          {{quality_check_step_interval}}
-#min_quality = 0.4                          {{min_quality}}
-#max_boundary_distortion = 0.25              {{max_boundary_distortion}}
+#quality_check_step_interval = {{quality_check_step_interval}}
+#min_quality = {{min_quality}}
+#max_boundary_distortion = {{max_boundary_distortion}}
 
-#remeshing_option = 0                          {{remeshing_option}}
-#is_discarding_internal_segments = yes      {{is_discarding_internal_segments}}
+#remeshing_option = {{remeshing_option}}
+#is_discarding_internal_segments = {{is_discarding_internal_segments}}
 
-#mmg_debug = 0                              {{mmg_debug}}
-#mmg_verbose = 0                            {{mmg_verbose}}
-#mmg_hmax_factor = 2.0                        {{mmg_hmax_factor}}
-#mmg_hmin_factor = 0.2                      {{mmg_hmin_factor}}
-#mmg_hausd_factor = 0.01                    {{mmg_hausd_factor}}
+#mmg_debug = {{mmg_debug}}
+#mmg_verbose = {{mmg_verbose}}
+#mmg_hmax_factor = {{mmg_hmax_factor}}
+#mmg_hmin_factor = {{mmg_hmin_factor}}
+#mmg_hausd_factor = {{mmg_hausd_factor}}
 
 [markers]
 #init_marker_option = {{init_marker_option}}
@@ -107,8 +107,8 @@ resolution = {{resolution}}
 #vbc_x1 = {{vbc_x1}}
 #vbc_val_x0 = {{vbc_val_x0}}
 #vbc_val_x1 = {{vbc_val_x1}}
-#vbc_y0 = {{val_y0}}
-#vbc_y1 = {{val_y1}}
+#vbc_y0 = {{vbc_y0}}
+#vbc_y1 = {{vbc_y1}}
 #vbc_val_y0 = {{vbc_val_y0}}
 #vbc_val_y1 = {{vbc_val_y1}}
 #vbc_z0 = {{vbc_z0}}
@@ -119,7 +119,7 @@ resolution = {{resolution}}
 #vbc_val_n0 = {{vbc_val_n0}}
 #vbc_n1 = {{vbc_n1}}
 #vbc_val_n1 = {{vbc_val_n1}}
-#vbc_n2 = {{val_n2}}
+#vbc_n2 = {{vbc_n2}}
 #vbc_val_n2 = {{vbc_val_n2}}
 #vbc_n3 = {{vbc_n3}}
 #vbc_val_n3 = {{vbc_val_n3}}
@@ -137,7 +137,7 @@ resolution = {{resolution}}
 
 [ic]
 #mattype_option = {{mattype_option}}
-#mattype_layer_depths = [0.5] {{mattype_layer_depths}}
+#mattype_layer_depths = {{mattype_layer_depths}}
 
 #weakzone_option = {{weakzone_option}}
 #weakzone_plstrain = {{weakzone_plstrain}}
@@ -161,11 +161,11 @@ resolution = {{resolution}}
 #oceanic_plate_age_in_yr = {{oceanic_plage_age_in_yr}}
 
 ### For temperature_option = 90
-#Temp_filename = Thermal.dat{{Temp_filename}}
-#Nodes_filename = Coord.dat{{Nodes_filename}}
-#Connectivity_filename = Connectivity.dat{{Connectivity_filename}}
+#Temp_filename = {{Temp_filename}}
+#Nodes_filename = {{Nodes_filename}}
+#Connectivity_filename = {{Connectivity_filename}}
 
-#isostasy_adjustment_time_in_yr = 0{{isostasy_adjustment_time_in_yr}}
+#isostasy_adjustment_time_in_yr = {{isostasy_adjustment_time_in_yr}}
 
 [mat]
 rheology_type = {{rheology_type}} # Possible values: elastic, viscous, maxwell,
@@ -198,3 +198,6 @@ rheology_type = {{rheology_type}} # Possible values: elastic, viscous, maxwell,
 #min_viscosity = {{min_viscosity}}
 #max_tension = {{max_tension}}
 #max_thermal_diffusivity = {{max_thermal_diffusivity}}
+
+
+
