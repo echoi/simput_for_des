@@ -59,7 +59,7 @@ resolution = {{resolution}}
 
 ### For meshing_option = 90         
 #poly_filename = mesh.poly              {{poly_filename}}
-### For meshing_option = 95                  I did the same thing twice
+### For meshing_option = 95                  
 #poly_filename = mesh.poly                  {{poly_filename}}
 
 #quality_check_step_interval = 100          {{quality_check_step_interval}}
@@ -75,29 +75,6 @@ resolution = {{resolution}}
 #mmg_hmin_factor = 0.2                      {{mmg_hmin_factor}}
 #mmg_hausd_factor = 0.01                    {{mmg_hausd_factor}}
 
-I could use better labels. not all of these things are intuitive
-What datatypes do i use in model (i used string when float could have worked for consistency)
-- what about + or - signs -- >float and java work with it. having a 0 at the front might make it octal, primarily in float
-- things with e -- > stick to strings
-
-What should i write in the readme
-- documentation - notes on making the thing
-- what the thing does/how it works
-- the mat part at the bottom
-- what got put into a seperate view (conditionals)
-- generalization of vartypes (variable naming conventions similar to how is/has denotes a boolean). bascially point out min/max (do i need to)
-- include defaults.cfg to give them an idea
-
-Fix the label json file at least
-- meshing option doesn't work 
-- possibly more
-
-how to avoid writing stuff when there was no given input (conditionals)
-
-Python file to join the unzipped files
-
-
-one line between mmg hausdf factor and markers
 [markers]
 #init_marker_option = {{init_marker_option}}
 #markers_per_element = {{markers_per_element}}
@@ -161,7 +138,6 @@ one line between mmg hausdf factor and markers
 [ic]
 #mattype_option = {{mattype_option}}
 #mattype_layer_depths = [0.5] {{mattype_layer_depths}}
-Again, what is up with this one (delete this line)
 
 #weakzone_option = {{weakzone_option}}
 #weakzone_plstrain = {{weakzone_plstrain}}
@@ -188,13 +164,12 @@ Again, what is up with this one (delete this line)
 #Temp_filename = Thermal.dat{{Temp_filename}}
 #Nodes_filename = Coord.dat{{Nodes_filename}}
 #Connectivity_filename = Connectivity.dat{{Connectivity_filename}}
+
 #isostasy_adjustment_time_in_yr = 0{{isostasy_adjustment_time_in_yr}}
 
 [mat]
-rheology_type = elastic # Possible values: elastic, viscous, maxwell,
+rheology_type = {{rheology_type}} # Possible values: elastic, viscous, maxwell,
                         # elasto-plastic, or elasto-visco-plastic
-{{rheology_type}}               (del this line)
-How is this formatted           (del this line)
 #is_plane_strain = {{is_plane_strain}}
 #phase_change_option = {{phase_change_option}}
 #num_materials = {{num_materials}}
@@ -219,7 +194,6 @@ How is this formatted           (del this line)
 #dilation_angle0 = {{dilation_angle0}}
 #dilation_angle1 = {{dilation_angle1}}
 
-The things say var = [ 1 ], so i don't know how they should type it or whether the brackets denote a list vs one value for all mats
 #max_viscosity = {{max_viscosity}}
 #min_viscosity = {{min_viscosity}}
 #max_tension = {{max_tension}}

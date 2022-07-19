@@ -9,7 +9,7 @@ module.exports = function convert(dataModel) {
       Object.keys(attributes.sim_attr).forEach((fieldName) => {
         sim_attr[fieldName] = attributes.sim_attr[fieldName].value[0];
       });
-      results [`des3d.cfg`] = Template(
+      results [`des3d.txt`] = Template(
         sim_attr
       );
   });
@@ -19,7 +19,7 @@ module.exports = function convert(dataModel) {
       Object.keys(attributes.mesh_attr).forEach((fieldName) => {
         mesh_attr[fieldName] = attributes.mesh_attr[fieldName].value[0];
       });
-      results [`des3d1.cfg`] = Template(
+      results [`des3d1.txt`] = Template(
         mesh_attr
       );
   });
@@ -31,7 +31,7 @@ module.exports = function convert(dataModel) {
       Object.keys(attributes.mesh_conditional_attr).forEach((fieldName) => {
         mesh_conditional_attr[fieldName] = attributes.mesh_conditional_attr[fieldName].value[0];
       });
-      results [`des3d2.cfg`] = Template(
+      results [`des3d2.txt`] = Template(
         mesh_conditional_attr
       );
   });
@@ -44,7 +44,7 @@ module.exports = function convert(dataModel) {
       Object.keys(attributes.markers_attr).forEach((fieldName) => {
         markers_attr[fieldName] = attributes.markers_attr[fieldName].value[0];
       });
-      results [`des3d3.cfg`] = Template(
+      results [`des3d3.txt`] = Template(
         markers_attr
       );
   });
@@ -56,7 +56,7 @@ module.exports = function convert(dataModel) {
       Object.keys(attributes.control_attr).forEach((fieldName) => {
         control_attr[fieldName] = attributes.control_attr[fieldName].value[0];
       });
-      results [`des3d4.cfg`] = Template(
+      results [`des3d4.txt`] = Template(
         control_attr
       );
   });
@@ -68,7 +68,7 @@ module.exports = function convert(dataModel) {
       Object.keys(attributes.bc_attr).forEach((fieldName) => {
         bc_attr[fieldName] = attributes.bc_attr[fieldName].value[0];
       });
-      results [`des3d5.cfg`] = Template(
+      results [`des3d5.txt`] = Template(
         bc_attr
       );
   });
@@ -81,7 +81,7 @@ module.exports = function convert(dataModel) {
       Object.keys(attributes.ic_attr).forEach((fieldName) => {
         ic_attr[fieldName] = attributes.ic_attr[fieldName].value[0];
       });
-      results [`des3d6.cfg`] = Template(
+      results [`des3d6.txt`] = Template(
         ic_attr
       );
   });
@@ -93,7 +93,7 @@ module.exports = function convert(dataModel) {
       Object.keys(attributes.ic_conditional_attr).forEach((fieldName) => {
         ic_conditional_attr[fieldName] = attributes.ic_conditional_attr[fieldName].value[0];
       });
-      results [`des3d7.cfg`] = Template(
+      results [`des3d7.txt`] = Template(
         ic_conditional_attr
       );
   });
@@ -105,7 +105,7 @@ module.exports = function convert(dataModel) {
       Object.keys(attributes.mat_attr).forEach((fieldName) => {
         mat_attr[fieldName] = attributes.mat_attr[fieldName].value[0];
       });
-      results [`des3d8.cfg`] = Template(
+      results [`des3d8.txt`] = Template(
         mat_attr
       );
   });
