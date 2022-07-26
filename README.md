@@ -44,6 +44,11 @@ $ Simput -p
 
 Starts a server and opens your web browser, showing a landing page with a choice of inputs which you can create.
 
+## Changes for DES3D
+
+Look under `types/des3d`.
+Jump to the `des3d` type [documentation](https://github.com/echoi/simput_for_des/blob/master/types/des3d/README.md) (under development). 
+
 ## Demos
 
 There are a few supplied demos in the folder `types`, each have their own README.
