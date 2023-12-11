@@ -1,22 +1,21 @@
 {
   "views": {
-    "sim_v": "sim: Simulation parameters",
-    "mesh_v": "mesh: Create the mesh",
-    "mesh_conditional_v": "conditional parameters from mesh",
-    "markers_v": "markers",
-    "control_v": "control",
-    "bc_v": "bc",
-    "ic_v": "ic",
-    "ic_conditional_v": "conditional parameters from ic",
-    "mat_v": "mat"
-
+    "sim_v": "Simulation-defining parameters",
+    "mesh_v": "Mesh",
+    "mesh_conditional_v": "Mesh: Conditional parameters",
+    "markers_v": "Marker-related parameters",
+    "control_v": "Simmulation-controlling parameters",
+    "bc_v": "Boundary Conditions",
+    "ic_v": "Initial Conditions",
+    "ic_conditional_v": "Initial Conditions: conditional parameters",
+    "mat_v": "Material properties"
   },
 
 
 
   "attributes": {
     "sim_attr": {
-      "title": "simulation",
+      "title": "Simulation",
       "parameters": {
         "modelname": "modelname",
         "max_steps": "max_steps: Max number of steps",
